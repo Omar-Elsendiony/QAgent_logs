@@ -1,0 +1,124 @@
+Test example 0 failed
+Number of Ran Tests : 5
+Number of failed Tests : 1
+Number of Error Test : 0
+Number of Succeeded Test : 4
+Test example 1 failed
+Number of Ran Tests : 7
+Number of failed Tests : 2
+Number of Error Test : 0
+Number of Succeeded Test : 5
+Test example 2 failed
+Number of Ran Tests : 7
+Number of failed Tests : 1
+Number of Error Test : 0
+Number of Succeeded Test : 6
+Example 3 has already passed
+=====================================
+Test example 4 succeeded
+Number of Ran Tests : 1
+Number of Succeeded Test : 1
+Example 5 has already passed
+=====================================
+Test example 6 failed
+Number of Ran Tests : 7
+Number of failed Tests : 1
+Number of Error Test : 0
+Number of Succeeded Test : 6
+Test example 7 failed
+Number of Ran Tests : 1
+Number of failed Tests : 1
+Number of Error Test : 0
+Number of Succeeded Test : 0
+Test example 8 failed due to syntax or indentation or timeout
+Number of Ran Tests : 5
+Number of failed Tests : 0
+Number of Error Test : 1
+Number of Succeeded Test : 0
+Example 9 has already passed
+=====================================
+Test example 10 failed
+Number of Ran Tests : 1
+Number of failed Tests : 0
+Number of Error Test : 1
+Number of Succeeded Test : 0
+Test example 11 failed
+Number of Ran Tests : 9
+Number of failed Tests : 1
+Number of Error Test : 0
+Number of Succeeded Test : 8
+Test example 12 succeeded
+Number of Ran Tests : 2
+Number of Succeeded Test : 2
+Test example 13 failed
+Number of Ran Tests : 4
+Number of failed Tests : 1
+Number of Error Test : 0
+Number of Succeeded Test : 3
+Test example 14 failed
+Number of Ran Tests : 8
+Number of failed Tests : 2
+Number of Error Test : 0
+Number of Succeeded Test : 6
+Test example 15 failed
+Number of Ran Tests : 7
+Number of failed Tests : 2
+Number of Error Test : 0
+Number of Succeeded Test : 5
+Test example 16 succeeded
+Number of Ran Tests : 7
+Number of Succeeded Test : 7
+Example 17 has already passed
+=====================================
+Test example 18 failed
+Number of Ran Tests : 1
+Number of failed Tests : 0
+Number of Error Test : 1
+Number of Succeeded Test : 0
+Test example 19 failed
+Number of Ran Tests : 9
+Number of failed Tests : 0
+Number of Error Test : 4
+Number of Succeeded Test : 5
+Example 20 has already passed
+=====================================
+Test example 21 failed
+Number of Ran Tests : 6
+Number of failed Tests : 0
+Number of Error Test : 1
+Number of Succeeded Test : 5
+Test example 22 failed
+Number of Ran Tests : 6
+Number of failed Tests : 1
+Number of Error Test : 0
+Number of Succeeded Test : 5
+Test example 23 failed
+Number of Ran Tests : 7
+Number of failed Tests : 0
+Number of Error Test : 1
+Number of Succeeded Test : 6
+Example 24 has already passed
+=====================================
+Test example 25 failed
+Number of Ran Tests : 6
+Number of failed Tests : 0
+Number of Error Test : 1
+Number of Succeeded Test : 5
+Test example 26 failed due to syntax or indentation or timeout
+Number of Ran Tests : 2
+Number of failed Tests : 0
+Number of Error Test : 1
+Number of Succeeded Test : 0
+Test example 27 failed
+Number of Ran Tests : 9
+Number of failed Tests : 2
+Number of Error Test : 0
+Number of Succeeded Test : 7
+Test example 28 succeeded
+Number of Ran Tests : 4
+Number of Succeeded Test : 4
+Test example 29 failed
+Number of Ran Tests : 1
+Number of failed Tests : 0
+Number of Error Test : 1
+Number of Succeeded Test : 0
