@@ -5,30 +5,30 @@ Number of Ran Tests : 7
 Number of Succeeded Test : 7
 Running Test Case 31
 =====================================
-Test example 31 succeeded
+Test example 31 failed
 Number of Ran Tests : 10
-Number of Succeeded Test : 10
+Number of failed Tests : 1
+Number of Error Test : 0
+Number of Succeeded Test : 9
 Running Test Case 32
 =====================================
 Test example 32 failed
-Number of Ran Tests : 7
-Number of failed Tests : 4
-Number of Error Test : 1
-Number of Succeeded Test : 2
+Number of Ran Tests : 0
+Number of failed Tests : 0
+Number of Error Test : 0
+Number of Succeeded Test : 0
 Running Test Case 33
 =====================================
-Test example 33 failed
-Number of Ran Tests : 7
-Number of failed Tests : 1
-Number of Error Test : 0
+Test example 33 succeeded
+Number of Ran Tests : 6
 Number of Succeeded Test : 6
 Running Test Case 34
 =====================================
 Test example 34 failed
 Number of Ran Tests : 7
-Number of failed Tests : 1
-Number of Error Test : 0
-Number of Succeeded Test : 6
+Number of failed Tests : 0
+Number of Error Test : 2
+Number of Succeeded Test : 5
 Running Test Case 35
 =====================================
 Test example 35 failed
@@ -40,9 +40,9 @@ Running Test Case 36
 =====================================
 Test example 36 failed
 Number of Ran Tests : 7
-Number of failed Tests : 6
+Number of failed Tests : 3
 Number of Error Test : 0
-Number of Succeeded Test : 1
+Number of Succeeded Test : 4
 Running Test Case 37
 =====================================
 Test example 37 failed
@@ -61,9 +61,9 @@ Running Test Case 39
 =====================================
 Test example 39 failed
 Number of Ran Tests : 7
-Number of failed Tests : 1
+Number of failed Tests : 7
 Number of Error Test : 0
-Number of Succeeded Test : 6
+Number of Succeeded Test : 0
 Running Test Case 40
 =====================================
 Test example 40 failed
@@ -75,9 +75,9 @@ Running Test Case 41
 =====================================
 Test example 41 failed
 Number of Ran Tests : 7
-Number of failed Tests : 2
+Number of failed Tests : 5
 Number of Error Test : 0
-Number of Succeeded Test : 5
+Number of Succeeded Test : 2
 Running Test Case 42
 =====================================
 Test example 42 succeeded
@@ -94,9 +94,9 @@ Running Test Case 44
 =====================================
 Test example 44 failed
 Number of Ran Tests : 7
-Number of failed Tests : 1
+Number of failed Tests : 3
 Number of Error Test : 0
-Number of Succeeded Test : 6
+Number of Succeeded Test : 4
 Running Test Case 45
 =====================================
 Test example 45 succeeded
@@ -105,48 +105,46 @@ Number of Succeeded Test : 0
 Running Test Case 46
 =====================================
 Test example 46 succeeded
-Number of Ran Tests : 7
-Number of Succeeded Test : 7
+Number of Ran Tests : 8
+Number of Succeeded Test : 8
 Running Test Case 47
 =====================================
 Test example 47 failed
 Number of Ran Tests : 7
-Number of failed Tests : 2
+Number of failed Tests : 1
 Number of Error Test : 1
-Number of Succeeded Test : 4
+Number of Succeeded Test : 5
 Running Test Case 48
 =====================================
-Test example 48 failed
+Test example 48 succeeded
 Number of Ran Tests : 7
-Number of failed Tests : 1
-Number of Error Test : 0
-Number of Succeeded Test : 6
+Number of Succeeded Test : 7
 Running Test Case 49
 =====================================
 Test example 49 failed
 Number of Ran Tests : 7
-Number of failed Tests : 2
+Number of failed Tests : 1
 Number of Error Test : 0
-Number of Succeeded Test : 5
+Number of Succeeded Test : 6
 Running Test Case 50
 =====================================
 Test example 50 failed
 Number of Ran Tests : 7
-Number of failed Tests : 5
+Number of failed Tests : 6
 Number of Error Test : 0
-Number of Succeeded Test : 2
+Number of Succeeded Test : 1
 Running Test Case 51
 =====================================
-Test example 51 succeeded
-Number of Ran Tests : 3
-Number of Succeeded Test : 3
-Running Test Case 52
-=====================================
-Test example 52 failed
+Test example 51 failed
 Number of Ran Tests : 7
 Number of failed Tests : 1
 Number of Error Test : 0
 Number of Succeeded Test : 6
+Running Test Case 52
+=====================================
+Test example 52 succeeded
+Number of Ran Tests : 7
+Number of Succeeded Test : 7
 Running Test Case 53
 =====================================
 Test example 53 succeeded
@@ -159,6 +157,11 @@ Number of Ran Tests : 6
 Number of Succeeded Test : 6
 Running Test Case 55
 =====================================
+Test example 55 failed
+Number of Ran Tests : 7
+Number of failed Tests : 7
+Number of Error Test : 0
+Number of Succeeded Test : 0
 Running Test Case 56
 =====================================
 Test example 56 succeeded
@@ -180,6 +183,6 @@ Running Test Case 59
 =====================================
 Test example 59 failed
 Number of Ran Tests : 7
-Number of failed Tests : 1
+Number of failed Tests : 7
 Number of Error Test : 0
-Number of Succeeded Test : 6
+Number of Succeeded Test : 0
