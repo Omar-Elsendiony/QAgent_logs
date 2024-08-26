@@ -1,0 +1,9 @@
+Total succeeded examples : 35
+Total failed examples : 65
+Total  testcases : 586
+Total succeeded testcases : 457
+Total failed testcases : 106
+Total error testcases : 23
+Incomplete Responses are : 0
+API Errors are : 0
+Tests to repeat : 115
