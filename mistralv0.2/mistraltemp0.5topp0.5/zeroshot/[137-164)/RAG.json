@@ -1,0 +1,137 @@
+[
+    {
+        "case number": "137",
+        "code": "\"\"\"A version utility module.\"\"\"\n\n\ndef cmp(a: int | str, b: int | str) -> int:\n    \"\"\"\n    C style cmp function returning the compare result as int.\n\n    Compare the two objects a and b and return an integer according to\n    the outcome. The return value is negative if x < b, zero if a == b\n    and strictly positive if a > b.\n\n    Parameters\n    ----------\n    a: any\n        First input to compare\n    b: any\n        Second input to compare\n\n    Returns\n    -------\n    int\n        -1 if 'b' is greater\n         0 if both are equal\n         1 if 'a' is greater\n    \"\"\"\n    return int(str(a) > str(b)) - int(str(a) < str(b))\n\n",
+        "unittest": "\"\"\"Tests for repod.version.util.\"\"\"\nfrom pytest import mark\n\nfrom repod.version.util import cmp\n\n\n@mark.parametrize(\n    \"first, second, expectation\",\n    [\n        (\"1\", \"1\", 0),\n        (\"1\", \"2\", -1),\n        (\"11\", \"12\", -1),\n        (\"2\", \"1\", 1),\n        (\"a\", \"a\", 0),\n        (\"a\", \"b\", -1),\n        (\"b\", \"a\", 1),\n        (\"aa\", \"ab\", -1),\n        (1, 1, 0),\n        (1, 2, -1),\n        (2, 1, 1),\n        (12, 11, 1),\n    ],\n)\ndef test_cmp(first: int | str, second: int | str, expectation: int) -> None:\n    \"\"\"Test repod.version.util.cmp.\"\"\"\n    assert cmp(first, second) == expectation  # nosec: B101\n\n"
+    },
+    {
+        "case number": "138",
+        "code": "from typing import Union\n\nfrom .utils.to_int import to_int\n\n\ndef is_even(input: Union[int, str]) -> bool:\n    input = to_int(input)\n\n    if input is None:\n        return False\n\n    return not bool(input % 2)\n\n",
+        "unittest": "import unittest\n\nfrom pyvalidator.is_even import is_even\nfrom . import print_test_ok\n\n\nclass TestIsEven(unittest.TestCase):\n    def valid_check(self, items):\n        for item in items:\n            try:\n                self.assertTrue(is_even(item))\n            except Exception as e:\n                print(f'failed for input: {item}')\n                raise e\n\n    def invalid_check(self, items):\n        for item in items:\n            try:\n                self.assertFalse(is_even(item))\n            except Exception as e:\n                print(f'failed for input: {item}')\n                raise e\n\n    def test_valid_even(self):\n        valid_items = [\n            0,\n            2,\n            4,\n            6,\n            8,\n            10,\n            12,\n            120,\n            1000,\n            -1000,\n            '1000',\n            '2',\n            '120',\n            '666',\n            '-888'\n        ]\n        self.valid_check(valid_items)\n        print_test_ok()\n\n    def test_invalid_even(self):\n        invalid_items = [\n            ' ',\n            'a',\n            '.1',\n            '1.0',\n            3,\n            5,\n            111,\n            -7,\n            '17',\n            '-21',\n            '121'\n        ]\n        self.invalid_check(invalid_items)\n        print_test_ok()\n\n"
+    },
+    {
+        "case number": "139",
+        "code": "def fact(x):\n    x_fact = 1\n    for i in range(1, x+1):\n        x_fact *= i\n    return x_fact\n\n",
+        "unittest": "import mymath\n\ndef test_math():\n    assert mymath.add(2, 3)  == 5\n    assert mymath.div(6, 3)  == 2\n    assert mymath.div(42, 1) == 42\n    assert mymath.add(-1, 1) == 0\n\n"
+    },
+    {
+        "case number": "140",
+        "code": "\"\"\"functions passed to the templates, that cam be used there\n\"\"\"\n\n\ndef addLineBreakToDescription(textLine, indent=0, prefix=''):\n    indentStr = (' ' * indent if indent > 0 else '') + prefix\n    breakedText = prefix\n    currentLen = 0\n    splittedLine = textLine.split()\n    for t in splittedLine:\n        # print('currentLen=' + str(currentLen))\n        if currentLen > 60:\n            currentLen = 0\n            breakedText = breakedText + '\\n' + indentStr\n        elif currentLen > 0:\n            # add space in-between the previous and the current token\n            breakedText = breakedText + ' '\n        currentLen = currentLen + len(t)\n        breakedText = breakedText + t\n    return breakedText\n\n",
+        "unittest": "import unittest\n\nimport yacg.templateHelper as templateHelper\n\n\n# For executing these test run: python -m unittest -v tests/model/test_templateHelper.py\nclass TestTemplateHelper (unittest.TestCase):\n\n    def testAddLineBreakToDesc(self):\n        input = 'abc def'\n\n        act = templateHelper.addLineBreakToDescription(input, 0)\n        self.assertEqual(act, 'abc def')\n\n        act = templateHelper.addLineBreakToDescription(input, 4)\n        self.assertEqual(act, 'abc def')\n\n        act = templateHelper.addLineBreakToDescription(input, 0, '// ')\n        self.assertEqual(act, '// abc def')\n\n        act = templateHelper.addLineBreakToDescription(input, 4, '// ')\n        self.assertEqual(act, '// abc def')\n\n        # line break is inserted when token starts after more than 60 (none white space) characters were already processed\n        input = '0123456789 0123456789 0123456789 0123456789 0123456789 0123456789abc 0123456789'\n        act = templateHelper.addLineBreakToDescription(input, 0)\n        self.assertEqual(act, '0123456789 0123456789 0123456789 0123456789 0123456789 0123456789abc\\n0123456789')\n\n        act = templateHelper.addLineBreakToDescription(input, 4)\n        self.assertEqual(act, '0123456789 0123456789 0123456789 0123456789 0123456789 0123456789abc\\n    0123456789')\n\n        input = '0123456789 0123456789 0123456789 0123456789 0123456789 0123456789abc 0123456789'\n        act = templateHelper.addLineBreakToDescription(input, 0, '// ')\n        self.assertEqual(act, '// 0123456789 0123456789 0123456789 0123456789 0123456789 0123456789abc\\n// 0123456789')\n\n        input = '0123456789 0123456789 0123456789 0123456789 0123456789 0123456789abc 0123456789'\n        act = templateHelper.addLineBreakToDescription(input, 4, '// ')\n        self.assertEqual(act, '// 0123456789 0123456789 0123456789 0123456789 0123456789 0123456789abc\\n    // 0123456789')\n\n"
+    },
+    {
+        "case number": "141",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "142",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "143",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "144",
+        "code": "def add(a, b):\n    return a + b\n\n\ndef subtract(a, b):\n    return a - b\n\n\ndef multiply(a, b):\n    return a * b\n\n\ndef divide(numerator, denominator):\n    return float(numerator) / denominator\n",
+        "unittest": "# test_mymath.py\nimport mymath\nimport unittest\n\nclass TestAdd(unittest.TestCase):\n    \"\"\"\n    Test the add function from the mymath library\n    \"\"\"\n\n    def test_add_integers(self):\n        \"\"\"\n        Test that the addition of two integers returns the correct total\n        \"\"\"\n        result = mymath.add(1, 2)\n        self.assertEqual(result, 3)\n\n    def test_add_floats(self):\n        \"\"\"\n        Test that the addition of two floats returns the correct result\n        \"\"\"\n        result = mymath.add(10.5, 2)\n        self.assertEqual(result, 12.5)\n\n    def test_add_strings(self):\n        \"\"\"\n        Test the addition of two strings returns the two string as one\n        concatenated string\n        \"\"\"\n        result = mymath.add('abc', 'def')\n        self.assertEqual(result, 'abcdef')\n\n\nif __name__ == '__main__':\n    unittest.main()\n"
+    },
+    {
+        "case number": "145",
+        "code": "class Solution:\n    def addDigits(self, num: int) -> int:\n        if num < 10:\n            return num\n\n        new_num = 0\n        while num > 0:\n            new_num += num % 10\n            num //= 10\n\n        return self.addDigits(new_num)\n\n",
+        "unittest": "from typing import List\n\n\nclass Solution:\n    def maxNumOfMarkedIndices(self, nums: List[int]) -> int:\n        answer = 0\n        double_nums = [num * 2 for num in nums]\n        for i in range(len(nums)):\n            for j in range(len(nums)):\n                if double_nums[i] <= nums[j]:\n                    answer += 1\n\n        return answer\n\n# WA\n# [1,78,27,48,14,86,79,68,77,20,57,21,18,67,5,51,70,85,47,56,22,79,41,8,39,81,59,74,14,45,49,15,10,28,16,77,22,65,8,36,79,94,44,80,72,8,96,78,39,92,69,55,9,44,26,76,40,77,16,69,40,64,12,48,66,7,59,10]\n# output: 1153\n# expected: 64\n\n"
+    },
+    {
+        "case number": "146",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "147",
+        "code": "\"\"\"https://leetcode.com/problems/maximal-square\"\"\"\n\n\ndef maximal_square(matrix):\n    \"\"\"\n    Time complexity: O(m * n)\n    Space complexity: O(1)\n\n    Args:\n        matrix(List[List[str]]): m x n binary matrix filled with 0's and 1's.\n\n    Returns:\n        Area of the largest square containing only 1's.\n\n    \"\"\"\n    matrix = [[int(val) for val in row] for row in matrix]\n    max_a = max(\n        max(matrix[0]),\n        max(matrix[x][0] for x in range(len(matrix)))\n    )\n\n    for i in range(1, len(matrix)):\n        if 1 not in matrix[i]:\n            continue\n\n        for j in range(1, len(matrix[0])):\n            if matrix[i][j] == 1:\n                matrix[i][j] = 1 + min(\n                    matrix[i - 1][j],\n                    matrix[i][j - 1],\n                    matrix[i - 1][j - 1]\n                )\n\n                max_a = max(max_a, matrix[i][j])\n\n    return max_a ** 2\n\n",
+        "unittest": "import pytest\nfrom dsa.problems.maximal_square import maximal_square\n\n\n@pytest.mark.parametrize(\"matrix, expected\", [\n    ([[\"1\",\"0\",\"1\",\"0\",\"0\"],[\"1\",\"0\",\"1\",\"1\",\"1\"],[\"1\",\"1\",\"1\",\"1\",\"1\"],[\"1\",\"0\",\"0\",\"1\",\"0\"]], 4),\n    ([[\"0\",\"1\"],[\"1\",\"0\"]], 1)\n])\ndef test_maximal_square(matrix, expected):\n    assert maximal_square(matrix) == expected\n\n"
+    },
+    {
+        "case number": "148",
+        "code": "\n__all__ = ['get_planet', 'get_all_planets', 'locate_planet']\n\n\nfrom pylightcurve.errors import *\nfrom pylightcurve.__databases__ import plc_data\nfrom pylightcurve.models.exoplanet import Planet\nfrom pylightcurve.spacetime.angles import Degrees, Hours, _request_angle\nfrom pylightcurve.spacetime.targets import FixedTarget\n\n\ndef _flat_name(name):\n\n    flat_name_list = [\n        [' ', ''],\n        ['-', ''],\n        ['cancri', 'cnc'],\n        ['hatp10', 'wasp11'],\n        ['wasp40', 'hatp27'],\n        ['wasp51', 'hatp30'],\n        ['wasp86', 'kelt12'],\n        ['kelt22', 'wasp173'],\n    ]\n\n    name = name.lower()\n\n    for char in flat_name_list:\n        name = name.replace(char[0], char[1])\n\n    return name\n\n\ndef _search_by_planet(name):\n\n    planets = plc_data.ecc()['planets']\n\n    name_or = name\n\n    if name in planets:\n        return name\n\n    else:\n        for i in planets:\n            if _flat_name(i) == _flat_name(name):\n                return str(i)\n            elif (_flat_name(i)[-1] == _flat_name(name)[-1] and _flat_name(i)[:-2] == _flat_name(name)[:-1] and\n                  _flat_name(i)[-2] in ['a', 'b', 'n']):\n                return str(i)\n\n    raise PyLCInputError('No planet {0} found in the catalogue.'.format(name_or))\n\n\ndef get_all_planets():\n\n    return list(plc_data.ecc()['planets'].keys())\n\n\ndef get_planet(name):\n\n    name = _search_by_planet(name)\n\n    planet_data = plc_data.ecc()['planets'][name]\n    star_data = plc_data.ecc()['stars'][planet_data['star']]\n\n    planet = Planet(\n        name,\n        Hours(star_data['ra']),\n        Degrees(star_data['dec']),\n        planet_data['logg'],\n        planet_data['teff'],\n        planet_data['meta'],\n        planet_data['rp_over_rs'],\n        planet_data['ephem_period'],\n        planet_data['sma_over_rs'],\n        planet_data['eccentricity'],\n        planet_data['inclination'],\n        planet_data['periastron'],\n        planet_data['ephem_mid_time'],\n        'BJD_TDB',\n    )\n\n    planet.all_data = {'planet': planet_data, 'star': star_data}\n\n    return planet\n\n\ndef locate_planet(ra, dec, radius=Degrees(0, 1, 0)):\n\n    if isinstance(ra, float):\n        ra = Degrees(ra)\n    else:\n        _request_angle(ra)\n\n    if isinstance(dec, float):\n        dec = Degrees(dec)\n    else:\n        _request_angle(dec)\n\n    if isinstance(radius, float):\n        radius = Degrees(radius)\n    else:\n        _request_angle(radius)\n\n    pointing = FixedTarget(ra, dec)\n\n    test_planets = []\n\n    for test_planet_name in get_all_planets():\n        test_planet = get_planet(test_planet_name).target\n        test_planets.append([pointing.distance_on_sphere(test_planet).deg(), test_planet_name])\n\n    test_planets.sort()\n\n    if test_planets[0][0] < radius.deg():\n        return get_planet(test_planets[0][1])\n    else:\n        raise PyLCLibraryError('Planet could not be located')\n\n",
+        "unittest": "\nimport pytest\nimport pylightcurve as plc\n\n\ndef test_catalogues():\n\n    planet1 = plc.get_planet('hatp7b')\n    planet2 = plc.get_planet('HAT-P-7b')\n    assert planet1.name == 'HAT-P-7b'\n    assert planet2.name == 'HAT-P-7b'\n    assert planet1.sma_over_rs == planet2.sma_over_rs\n\n    planet = plc.get_planet('wasp77b')\n    assert planet.name == 'WASP-77Ab'\n\n    with pytest.raises(plc.PyLCInputError):\n        planet = plc.get_planet('aaaaaaaaaa')\n\n    assert len(plc.get_all_planets()) > 0\n\n    planet = plc.locate_planet(plc.Degrees(330.795), plc.Degrees(18.884))\n    assert planet.name == 'HD209458b'\n\n    planet = plc.locate_planet(330.795, 18.884)\n    assert planet.name == 'HD209458b'\n\n    with pytest.raises(plc.PyLCLibraryError):\n        planet = plc.locate_planet(plc.Degrees(330.795), plc.Degrees(17.884))\n\n"
+    },
+    {
+        "case number": "149",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "150",
+        "code": "def pow1(x, n: int):\n    \"\"\"\n    compute x ^ n\n    \"\"\"\n    if n == 0:\n        return 1\n    square = x * x\n    if n % 2:\n        return pow1(square, n // 2) * x\n    return pow1(square, n // 2)\n\n\ndef pow2(x, n: int):\n    \"\"\"\n    compute x ^ n\n    \"\"\"\n    if n == 0:\n        return 1\n    tmp = pow2(x, n // 2)\n    if n % 2:\n        return tmp * tmp * x\n    return tmp * tmp\n\n",
+        "unittest": "import math\nimport random\nfrom unittest import TestCase\nfrom pow import pow1, pow2\n\n\nclass Test(TestCase):\n    def test_pow1(self):\n        x = random.randint(1, 10)\n        for n in range(10):\n            self.assertEqual(pow1(x, n), math.pow(x, n))\n\n    def test_pow2(self):\n        x = random.randint(1, 10)\n        for n in range(10):\n            self.assertEqual(pow2(x, n), math.pow(x, n))\n\n"
+    },
+    {
+        "case number": "151",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "152",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "153",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "154",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "155",
+        "code": "from typing import Union\n\nfrom .utils.to_int import to_int\n\n\ndef is_even(input: Union[int, str]) -> bool:\n    input = to_int(input)\n\n    if input is None:\n        return False\n\n    return not bool(input % 2)\n\n",
+        "unittest": "import unittest\n\nfrom pyvalidator.is_even import is_even\nfrom . import print_test_ok\n\n\nclass TestIsEven(unittest.TestCase):\n    def valid_check(self, items):\n        for item in items:\n            try:\n                self.assertTrue(is_even(item))\n            except Exception as e:\n                print(f'failed for input: {item}')\n                raise e\n\n    def invalid_check(self, items):\n        for item in items:\n            try:\n                self.assertFalse(is_even(item))\n            except Exception as e:\n                print(f'failed for input: {item}')\n                raise e\n\n    def test_valid_even(self):\n        valid_items = [\n            0,\n            2,\n            4,\n            6,\n            8,\n            10,\n            12,\n            120,\n            1000,\n            -1000,\n            '1000',\n            '2',\n            '120',\n            '666',\n            '-888'\n        ]\n        self.valid_check(valid_items)\n        print_test_ok()\n\n    def test_invalid_even(self):\n        invalid_items = [\n            ' ',\n            'a',\n            '.1',\n            '1.0',\n            3,\n            5,\n            111,\n            -7,\n            '17',\n            '-21',\n            '121'\n        ]\n        self.invalid_check(invalid_items)\n        print_test_ok()\n\n"
+    },
+    {
+        "case number": "156",
+        "code": "\"\"\"https://leetcode.com/problems/integer-to-roman/\"\"\"\nimport math\n\n\ndef int_to_roman(num):\n    \"\"\"\n    Time complexity: O(n*log(n))\n    Space complexity: O(n*log(n))\n\n    :type num: int\n    :rtype: str\n    \"\"\"\n    stack = [\n        (\"I\", 1),\n        (\"IV\", 4),\n        (\"V\", 5),\n        (\"IX\", 9),\n        (\"X\", 10),\n        (\"XL\", 40),\n        (\"L\", 50),\n        (\"XC\", 90),\n        (\"C\", 100),\n        (\"CD\", 400),\n        (\"D\", 500),\n        (\"CM\", 900),\n        (\"M\", 1000),\n    ]\n\n    roman = \"\"\n    while num > 0:\n        count = math.floor(num / stack[-1][1])\n        if count > 0:\n            roman += stack[-1][0] * count\n            num -= stack[-1][1] * count\n        stack.pop()\n\n    return roman\n",
+        "unittest": "import pytest\nfrom dsa.problems.int_to_roman import int_to_roman\n\n\n@pytest.mark.parametrize(\"value, expected\", [\n    (3, \"III\"),\n    (58, \"LVIII\"),\n    (1994, \"MCMXCIV\"),\n    (2021, \"MMXXI\"),\n    (420, \"CDXX\"),\n    (69, \"LXIX\"),\n])\ndef test_int_to_roman(value, expected):\n    assert int_to_roman(value) == expected\n\n"
+    },
+    {
+        "case number": "157",
+        "code": "import math\n\ndef circum_circle_radius(a, b, c):\n  # Circumcircle radius calculation from http://www.mathopenref.com/trianglecircumcircle.html\n  if a > 0 and b > 0 and c > 0:\n    try:\n      divider = math.sqrt(math.fabs((a+b+c)*(b+c-a)*(c+a-b)*(a+b-c)))\n      return (a * b * c) / divider\n    except ZeroDivisionError:\n      return 10000\n  else:\n    return 10000\n\n",
+        "unittest": "from curvature.radiusmath import circum_circle_radius \n\ndef test_circum_circle_radius_zero_lengths():\n  assert circum_circle_radius(0, 0, 0) == 10000\n\ndef test_circum_circle_radius_zero_division():\n  assert circum_circle_radius(0.13430093277996386, 0.13430093277996386, 0.2686018655599277) == 10000\n"
+    },
+    {
+        "case number": "158",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "159",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "160",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "161",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "162",
+        "code": "#!/usr/bin/evn python\n# coding=utf-8\n\nimport hashlib\n\ndef md5(text):\n    \"\"\"md5\u52a0\u5bc6\u51fd\u6570\"\"\"\n    md5 = hashlib.md5()\n    if not isinstance(text, bytes):\n        text = str(text).encode('utf-8')\n    md5.update(text)\n    return md5.hexdigest()\n\n",
+        "unittest": "#!/usr/bin/evn python\n# coding=utf-8\n\nimport unittest\nfrom common import encrypt_helper\n\n\nclass EncryptHelperTest(unittest.TestCase):\n    \"\"\"\u52a0\u5bc6\u64cd\u4f5c\u5305\u6d4b\u8bd5\u7c7b\"\"\"\n\n    def setUp(self):\n        \"\"\"\u521d\u59cb\u5316\u6d4b\u8bd5\u73af\u5883\"\"\"\n        print('------ini------')\n\n    def tearDown(self):\n        \"\"\"\u6e05\u7406\u6d4b\u8bd5\u73af\u5883\"\"\"\n        print('------clear------')\n\n    def test(self):\n        result = encrypt_helper.md5(1)\n        print(result)\n        self.assertEqual(result, 'c4ca4238a0b923820dcc509a6f75849b')\n\n        result = encrypt_helper.md5('1')\n        print(result)\n        self.assertEqual(result, 'c4ca4238a0b923820dcc509a6f75849b')\n\n        result = encrypt_helper.md5(b'1')\n        print(result)\n        self.assertEqual(result, 'c4ca4238a0b923820dcc509a6f75849b')\n\nif __name__ == '__main__':\n    unittest.main()\n\n"
+    },
+    {
+        "case number": "163",
+        "code": "\"\"\"\nA simple implementation of RFC 1982 serial number arithmetic\nto handle wrapping of packet sequence numbers.\n\n* https://tools.ietf.org/html/rfc1982\n\nNote that when incrementing a serial number, one is allowed\nto add up to (2 ** bits - 1) - 1.\n\"\"\"\n\n\ndef serial_lt(a: int, b: int, bits: int = 32) -> bool:\n    half = 2 ** (bits - 1)\n    return (a < b and (b - a) < half) or (a > b and (a - b) > half)\n\n\ndef serial_gt(a: int, b: int, bits: int = 32) -> bool:\n    half = 2 ** (bits - 1)\n    return (a < b and (b - a) > half) or (a > b and (a - b) < half)\n\n\ndef serial_le(a: int, b: int, bits: int = 32) -> bool:\n    return a == b or serial_lt(a, b, bits)\n\n\ndef serial_ge(a: int, b: int, bits: int = 32) -> bool:\n    return a == b or serial_gt(a, b, bits)\n\n",
+        "unittest": "from callosum.serial import serial_gt, serial_lt\n\n\ndef test_serial_comparison():\n    assert serial_lt(1, 2, bits=8)\n    assert not serial_lt(2, 1, bits=8)\n\n    assert serial_lt(255, 100, bits=8)\n    assert serial_lt(255, 126, bits=8)\n    assert not serial_lt(255, 127, bits=8)\n    assert not serial_lt(255, 200, bits=8)\n\n    assert not serial_gt(1, 2, bits=8)\n    assert serial_gt(2, 1, bits=8)\n\n    assert not serial_gt(255, 100, bits=8)\n    assert not serial_gt(255, 127, bits=8)\n    assert serial_gt(255, 128, bits=8)\n    assert serial_gt(255, 200, bits=8)\n\n"
+    }
+]

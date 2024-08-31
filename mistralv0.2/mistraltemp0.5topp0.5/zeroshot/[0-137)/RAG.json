@@ -1,0 +1,687 @@
+[
+    {
+        "case number": "0",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "1",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "2",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "3",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "4",
+        "code": "import math\n\n\ndef py_stddev(a):\n    mean = sum(a) / len(a)\n    return math.sqrt((sum(((x - mean) ** 2 for x in a)) / len(a)))\n\n",
+        "unittest": "from array import array\nimport timeit\n\nfrom fm import sd, sd2\n\n\ndef test_py_sd():\n    a = array(\"h\", range(10000))\n    func = sd.py_stddev\n    assert int(func(a)) == 2886\n    print(func, timeit.timeit(lambda: func(a), number=1000))\n\n\ndef test_py_sd2():\n    a = array(\"h\", range(10000))\n    func = sd2.py_stddev\n    assert int(func(a)) == 2886\n    print(func, timeit.timeit(lambda: func(a), number=1000))\n\n\ndef test_py_sd_cy():\n    a = array(\"h\", range(10000))\n    func = sd2.cy_stddev\n    assert int(func(a)) == 2886\n    print(func, timeit.timeit(lambda: func(a), number=1000))\n\n"
+    },
+    {
+        "case number": "5",
+        "code": "from toolz import curry\n\n\n@curry\ndef intersperse(separator, xs):\n    \"\"\"Creates a new list with the separator interposed between elements.\n    Dispatches to the intersperse method of the second argument, if present\"\"\"\n    if hasattr(xs, \"intersperse\"):\n        return xs.intersperse(separator)\n    out = [xs[0]]\n    for x in xs[1:]:\n        out += [separator, x]\n\n    return out\n\n",
+        "unittest": "from ramda.intersperse import intersperse\nfrom ramda.private.asserts import *\n\n\ndef test_intesperse():\n    xs = [\"ba\", \"a\", \"a\"]\n    assert_equal(intersperse(\"n\", xs), [\"ba\", \"n\", \"a\", \"n\", \"a\"])\n\n    class XS:\n        def intersperse(self, separator):\n            return [separator for x in xs]\n\n    assert_equal(intersperse(\"n\", XS()), [\"n\", \"n\", \"n\"])\n\n"
+    },
+    {
+        "case number": "6",
+        "code": "# 1111. Maximum Nesting Depth of Two Valid Parentheses Strings\nclass Solution:\n    def maxDepthAfterSplit(self, seq: str) -> List[int]:\n        c = 0\n        ans = [0] * len(seq)\n        for i, br in enumerate(seq):\n            if br == '(':\n                c += 1\n                ans[i] = c % 2\n            else:\n                ans[i] = c % 2\n                c -= 1\n\n        return ans\n",
+        "unittest": "# 1111. Maximum Nesting Depth of Two Valid Parentheses Strings\nclass Solution:\n    def maxDepthAfterSplit(self, seq: str) -> List[int]:\n        c = 0\n        ans = [0] * len(seq)\n        for i, br in enumerate(seq):\n            if br == '(':\n                c += 1\n                ans[i] = c % 2\n            else:\n                ans[i] = c % 2\n                c -= 1\n\n        return ans\n"
+    },
+    {
+        "case number": "7",
+        "code": "def substrings_in_strings(substrings, strings):\n    if type(strings) != list:\n        strings = [strings]\n    if type(substrings) != list:\n        substrings = [substrings]\n    for string in strings:\n        for substring in substrings:\n            if substring == \"\":\n                continue\n            if substring in string:\n                return string\n    return \"\"\n\n",
+        "unittest": "from signatures.checks import helpers\n\n\n## substrings_in_strings\ndef test_substrings_in_strings_for_single_string():\n    assert helpers.substrings_in_strings(\"abc\", \"abc\") == \"abc\"\n\n\ndef test_substrings_in_strings_for_single_substring():\n    assert helpers.substrings_in_strings(\"b\", \"abc\") == \"abc\"\n\n\ndef test_substrings_in_strings_for_multiple_substring():\n    assert helpers.substrings_in_strings([\"a\", \"b\", \"c\"], \"abc\") == \"abc\"\n\n\ndef test_substrings_in_strings_returns_first_for_multiple_strings():\n    assert helpers.substrings_in_strings(\"a\", [\"abc\", \"aed\"]) == \"abc\"\n\n\ndef test_substrings_in_strings_no_subtrings():\n    assert helpers.substrings_in_strings(\"\", [\"abc\", \"aed\"]) == \"\"\n\n\ndef test_substrings_in_strings_no_strings():\n    assert helpers.substrings_in_strings(\"a\", \"\") == \"\"\n\n\ndef test_substrings_in_strings_nothing():\n    assert helpers.substrings_in_strings(\"\", \"\") == \"\"\n\n"
+    },
+    {
+        "case number": "8",
+        "code": "def product(xs):\n    \"\"\"Multiplies together all the elements of a list\"\"\"\n    result = xs[0]\n    for x in xs[1:]:\n        result *= x\n    return result\n\n",
+        "unittest": "from ramda import product\nfrom ramda.private.asserts import assert_equal\n\n\ndef test_product():\n    assert_equal(product([2, 3, 5]), 30)\n\n"
+    },
+    {
+        "case number": "9",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "10",
+        "code": "# Code Listing - #12\n\n\"\"\"\nModule palindrome - Returns whether an input string is palindrome or not\n\"\"\"\n\n# Note - this is the first version of palindrome, so called palindrome1.py\n\ndef is_palindrome(in_string):\n    \"\"\" Returns True whether in_string is palindrome, False otherwise \"\"\"\n\n    # Case insensitive\n    in_string = in_string.lower()\n    # Check if string is same as in reverse\n    return in_string == in_string[-1::-1]\n\n",
+        "unittest": "# Code Listing - #11\n\n\"\"\"\nModule test_palindrome - TDD for palindrome module\n\"\"\"\n\n# Note: This is the first version of test_palindrome, so called test_palindrome1.py\n\nimport palindrome\n\ndef test_basic():\n    \"\"\" Basic test for palindrome \"\"\"\n\n    # True positives\n    for test in ('Rotator','bob','madam','mAlAyAlam', '1'):\n        assert palindrome.is_palindrome(test)==True\n\n    # True negatives\n    for test in ('xyz','elephant', 'Country'):\n        assert palindrome.is_palindrome(test)==False        \n\n\n"
+    },
+    {
+        "case number": "11",
+        "code": "\ufeff#  Copyright \u00a9 2002-2010 Zooko Wilcox-O'Hearn\n#  This file is part of pyutil; see README.rst for licensing terms.\n\n\"\"\"\nWhat word has three letters and a 'x' in it?\n\nNot that one silly.\n\"\"\"\n\nimport warnings\nimport array, operator\n\nfrom pyutil.assertutil import precondition\n\ndef py_xor(str1, str2):\n    warnings.warn(\"deprecated\", DeprecationWarning)\n    precondition(len(str1) == len(str2), \"str1 and str2 are required to be of the same length.\", str1=str1, str2=str2)\n\n    if len(str1)%4 == 0:\n        a1 = array.array('i', str1)\n        a2 = array.array('i', str2)\n        for i in range(len(a1)):\n            a2[i] = a2[i]^a1[i]\n    elif len(str1)%2 == 0:\n        a1 = array.array('h', str1)\n        a2 = array.array('h', str2)\n        for i in range(len(a1)):\n            a2[i] = a2[i]^a1[i]\n    else:\n        a1 = array.array('c', str1)\n        a2 = array.array('c', str2)\n        for i in range(len(a1)):\n            a2[i] = chr(ord(a2[i])^ord(a1[i]))\n\n    return a2.tostring()\n\ndef py_xor_simple(str1, str2):\n    \"\"\"\n    Benchmarks show that this is the same speed as py_xor() for small strings\n    and much slower for large strings, so don't use it. --Zooko 2002-04-29\n    \"\"\"\n    warnings.warn(\"deprecated\", DeprecationWarning)\n    precondition(len(str1) == len(str2), \"str1 and str2 are required to be of the same length.\", str1=str1, str2=str2)\n\n    return ''.join(map(chr, map(operator.__xor__, map(ord, str1), map(ord, str2))))\n\n# Now make \"xor.xor()\" be the best xor we've got:\nxor = py_xor\n\n# for unit tests, see pyutil/test/test_xor.py.  For benchmarks, see pyutil/test/bench_xor.py.\n\n",
+        "unittest": "#!/usr/bin/env python\n\n#  Copyright (c) 2002-2009 Zooko Wilcox-O'Hearn\n#  portions Copyright (c) 2001 Autonomous Zone Industries\n#  This file is part of pyutil; see README.rst for licensing terms.\n#\nimport unittest\n\nfrom pyutil.xor import xor\n\n# unit tests\ndef _help_test(xf):\n    assert xf('\\000', '\\000') == '\\000'\n    assert xf('\\001', '\\000') == '\\001'\n    assert xf('\\001', '\\001') == '\\000'\n    assert xf('\\000\\001', '\\000\\001') == '\\000\\000'\n    assert xf('\\100\\101', '\\000\\101') == '\\100\\000'\n\nclass Testy(unittest.TestCase):\n    def test_em(self):\n        for xorfunc in (xor.py_xor, xor.py_xor_simple, xor.xor,):\n            if callable(xorfunc):\n                # print \"testing xorfunc \", xorfunc\n                _help_test(xorfunc)\n\n"
+    },
+    {
+        "case number": "12",
+        "code": "\ndef get_max_length(list_of_strings):\n\tmax_len =-1\n\tfor i in list_of_strings:\n\t\tif (len(i) > max_len):\n\t\t\tmax_len = len(i)\n\t\t\tres = len(i)\n\treturn res\n\t\n",
+        "unittest": "\nimport os\n\ndef generateTester(filename, rawSh,shellEntry):\n\n\tprevDir = '\\\\'.join((os.path.join(os.path.dirname(__file__))).split(\"\\\\\")[:-1])\n\t# print(prevDir)\n\ttemplatePath = os.path.join(os.path.dirname(__file__),\"tester_template.txt\")\n\n\ttesterPath = os.path.join(os.path.dirname(__file__), \"..\", \"logs\", filename, filename+\"_tester.c\")\n\tfp = open(templatePath, \"r\")\n\tfpData = fp.read()\n\n\t# print(fpData)\n\trawSh = rawSh.replace(\"String Literal:\", \"\").strip()\n\tnewData = fpData.replace(\"<code>\", rawSh)\n\n\tnewData = newData.replace(\"<size>\", str(len(rawSh)+1))\n\tnewData2 = newData.replace(\"<offset>\", str(shellEntry))\n\n\t# print(newData)\n\t\n\tfp.close()\n\n\tfp = open(testerPath, \"w\")\n\tfp.write(newData2)\n\tfp.close()\n\t# print(os.path.join(os.path.dirname(__file__), \"..\\\\\"))\n\n\n"
+    },
+    {
+        "case number": "13",
+        "code": "def gcd(a, b):\n    if a == 0:\n        return b\n\n    return gcd(b % a, a)\n\n",
+        "unittest": "from unittest import TestCase\nfrom gcd import gcd\n\n\nclass GcdTest(TestCase):\n    def test_gcd(self):\n        assert gcd(16, 4) == 4\n        assert gcd(17, 5) == 1\n        assert gcd(30, 20) == 10\n        assert gcd(10, 0) == 10\n\n"
+    },
+    {
+        "case number": "14",
+        "code": "def remove_prefix(s: str, prefix: str) -> str:\n    if s.startswith(prefix):\n        return s[len(prefix):]\n    else:\n        return s\n\n\ndef remove_suffix(s: str, suffix: str) -> str:\n    if s.endswith(suffix):\n        return s[:-len(suffix)]\n    else:\n        return s\n\n",
+        "unittest": "import unittest\n\nfrom nayvy.utils.string_utils import remove_prefix, remove_suffix\n\n\nclass Test(unittest.TestCase):\n\n    def test_remove_prefix(self) -> None:\n        assert remove_prefix('test_hoge', 'test_') == 'hoge'\n        return\n\n    def test_remove_suffix(self) -> None:\n        assert remove_suffix('hoge.py', '.py') == 'hoge'\n        return\n\n"
+    },
+    {
+        "case number": "15",
+        "code": "n = int(input())\ns = str(n)\nprint(s[-1])\n\n",
+        "unittest": "n = int(input())\nx = hex(n)[-1]\nif x.isalpha():\n    x = ord(x) - 87\nprint(bin(int(x))[-1])\n\n"
+    },
+    {
+        "case number": "16",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "17",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "18",
+        "code": "# coding: utf-8\n\"\"\"\nhttps://leetcode.com/problems/implement-strstr/\n\"\"\"\n\n\nclass Solution:\n    def strStr(self, haystack: str, needle: str) -> int:\n        if not needle:\n            return 0\n\n        n_length = len(needle)\n        for i in range(len(haystack)):\n            if haystack[i:i + n_length] == needle:\n                return i\n\n        return -1\n\n\nclass Solution2:\n    def strStr(self, haystack: str, needle: str) -> int:\n        if not needle:\n            return 0\n\n        n_length = len(needle)\n        h_length = len(haystack)\n\n        if h_length < n_length:\n            return -1\n\n        for i in range(h_length - n_length + 1):\n            if haystack[i:i + n_length] == needle:\n                return i\n\n        return -1\n\n",
+        "unittest": "# coding: utf-8\nimport unittest\n\nfrom problems.implement_strstr import Solution\nfrom problems.implement_strstr import Solution2\n\n\nclass TestCase(unittest.TestCase):\n    def setUp(self):\n        self.solution = Solution()\n\n    def test(self):\n        haystack = 'hello'\n        needle = 'll'\n        expected = 2\n        self.assertEqual(self.solution.strStr(haystack, needle), expected)\n\n    def test2(self):\n        haystack = 'aaaaa'\n        needle = 'bba'\n        expected = -1\n        self.assertEqual(self.solution.strStr(haystack, needle), expected)\n\n    def test3(self):\n        haystack = 'xyz'\n        needle = ''\n        expected = 0\n        self.assertEqual(self.solution.strStr(haystack, needle), expected)\n\n    def test4(self):\n        haystack = 'hello'\n        needle = 'lo'\n        expected = 3\n        self.assertEqual(self.solution.strStr(haystack, needle), expected)\n\n    def test5(self):\n        haystack = 'aaa'\n        needle = 'aaaaaaa'\n        expected = -1\n        self.assertEqual(self.solution.strStr(haystack, needle), expected)\n\n\nclass TestCase2(unittest.TestCase):\n    def setUp(self):\n        self.solution = Solution2()\n\n    def test(self):\n        haystack = 'hello'\n        needle = 'll'\n        expected = 2\n        self.assertEqual(self.solution.strStr(haystack, needle), expected)\n\n    def test2(self):\n        haystack = 'aaaaa'\n        needle = 'bba'\n        expected = -1\n        self.assertEqual(self.solution.strStr(haystack, needle), expected)\n\n    def test3(self):\n        haystack = 'xyz'\n        needle = ''\n        expected = 0\n        self.assertEqual(self.solution.strStr(haystack, needle), expected)\n\n    def test4(self):\n        haystack = 'hello'\n        needle = 'lo'\n        expected = 3\n        self.assertEqual(self.solution.strStr(haystack, needle), expected)\n\n    def test5(self):\n        haystack = 'aaa'\n        needle = 'aaaaaaa'\n        expected = -1\n        self.assertEqual(self.solution.strStr(haystack, needle), expected)\n\n\nif __name__ == '__main__':\n    unittest.main()\n\n"
+    },
+    {
+        "case number": "19",
+        "code": "import os\n\n\ndef create_folder(path: str) -> str:\n    \"\"\"Create folder, if it doesn't already exist\"\"\"\n    if not os.path.exists(path):\n        os.makedirs(path)\n    return path\n\n\ndef join_text_with_comma_and_and(values: list) -> str:\n    \"\"\"Merge values for text output with commas and only the last value\n    with an \"and\"\"\n\n    Args:\n        values (list): list of values to be merged.\n\n    Returns:\n        str: new text.\n    \"\"\"\n    if len(values) > 2:\n        last_value = values[-1]\n        values = \", \".join(values[:-1])\n        text = values + \", and \" + last_value\n\n    else:\n        text = \", and \".join(values)\n    return text\n\n\ndef get_number_to_string_dict() -> None:\n    \"\"\"Map number of features to string values\"\"\"\n    number_text = (\n        \"one\",\n        \"two\",\n        \"three\",\n        \"four\",\n        \"five\",\n        \"six\",\n        \"seven\",\n        \"eight\",\n        \"nine\",\n        \"ten\",\n        \"eleven\",\n        \"twelve\",\n        \"thirteen\",\n        \"fourteen\",\n        \"fifteen\",\n        \"sixteen\",\n        \"seventeen\",\n        \"eighteen\",\n        \"nineteen\",\n        \"twenty\",\n    )\n    num_to_str = {}\n    for text, number in zip(number_text, range(1, 21)):\n        num_to_str[number] = text\n    return num_to_str\n\n\nnum_to_str = get_number_to_string_dict()\n\n",
+        "unittest": "import pandas as pd\nfrom sklearn.datasets import load_diabetes, load_iris\nfrom sklearn.ensemble import RandomForestClassifier, RandomForestRegressor\nfrom sklearn.model_selection import train_test_split\n\n\ndef get_regression_model():\n    diabetes = load_diabetes()\n\n    X_train, X_test, y_train, y_test = train_test_split(\n        diabetes.data, diabetes.target, random_state=0\n    )\n    X_test = pd.DataFrame(X_test, columns=diabetes.feature_names)\n    y_test = pd.DataFrame(y_test)\n\n    model = RandomForestRegressor(random_state=0).fit(X_train, y_train)\n    return model, X_test, y_test\n\n\ndef get_classification_model():\n    iris = load_iris()\n\n    X_train, X_test, y_train, y_test = train_test_split(\n        iris.data, iris.target, random_state=0\n    )\n    X_test = pd.DataFrame(X_test, columns=iris.feature_names)\n    y_test = pd.DataFrame(y_test)\n\n    model = RandomForestClassifier(random_state=0).fit(X_train, y_train)\n    return model, X_test, y_test\n\n"
+    },
+    {
+        "case number": "20",
+        "code": "import math\n\n\ndef distance(pa, pb):\n    ax, ay = pa\n    bx, by = pb\n    return math.sqrt((ax - bx) ** 2 + (ay - by) ** 2)\n\n\ndef index_of_nearest(p, hot_points, distance_f=distance):\n    \"\"\"Given a point and a set of hot points it found the hot point\n    nearest to the given point. An arbitrary distance function can\n    be specified\n    :return the index of the nearest hot points, or None if the list of hot\n            points is empty\n    \"\"\"\n    min_dist = None\n    nearest_hp_i = None\n    for i, hp in enumerate(hot_points):\n        dist = distance_f(p, hp)\n        if min_dist is None or dist < min_dist:\n            min_dist = dist\n            nearest_hp_i = i\n    return nearest_hp_i\n\n",
+        "unittest": "import unittest\nfrom worldengine.basic_map_operations import distance, index_of_nearest\n\n\nclass TestBasicMapOperations(unittest.TestCase):\n\n    def setUp(self):\n        pass\n\n    def test_distance(self):\n        self.assertAlmostEqual(22.360679774997898, distance((0, 0), (10, 20)))\n        self.assertAlmostEqual(22.360679774997898, distance((-1, -1), (9, 19)))\n        self.assertAlmostEqual(22.360679774997898, distance((-1, 9), (9, 29)))\n        self.assertAlmostEqual(22.360679774997898, distance((9, -1), (19, 19)))\n\n    def test_index_of_nearest(self):\n        self.assertTrue(index_of_nearest((0, 0), []) is None)\n        self.assertEqual(0, index_of_nearest(\n            (0, 0), [(0, 0), (10, 10), (7, 7), (-5, -5), (-2, 7)]))\n        self.assertEqual(3, index_of_nearest(\n            (-4, -4), [(0, 0), (10, 10), (7, 7), (-5, -5), (-2, 7)]))\n        self.assertEqual(3, index_of_nearest(\n            (-100, -100), [(0, 0), (10, 10), (7, 7), (-5, -5), (-2, 7)]))\n        self.assertEqual(3, index_of_nearest(\n            (-100.0, -100.0), [(0, 0), (10, 10), (7, 7), (-5, -5), (-2, 7)]))\n\nif __name__ == '__main__':\n    unittest.main()\n\n"
+    },
+    {
+        "case number": "21",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "22",
+        "code": "def filter_ints(v):\n    return [num for num in v if is_positive(num)]\n\ndef is_positive(n):\n    return n > 0\n\n\nif __name__ == \"__main__\":\n    print(filter_ints([3, -4, 0, 5, 8]))  # [3, 5, 8]\n\n",
+        "unittest": "from unittest import TestCase  # 1\nfrom unittest.mock import patch, call  # 2\nfrom nose.tools import assert_equal, assert_list_equal  # 3\n\nfrom ch7.filter_funcs import filter_ints  # 4\n\n\nclass FilterIntsTestCase(TestCase):  # 5\n\n    @patch('ch7.filter_funcs.is_positive')  # 6\n    def test_filter_ints(self, is_positive_mock):  # 7\n        # preparation\n        v = [3, -4, 0, 5, 8]\n\n        # execution\n        filter_ints(v)  # 8\n\n        # verification\n        assert_equal(\n            [call(3), call(-4), call(0), call(5), call(8)],\n            is_positive_mock.call_args_list\n        )  # 9\n\n    def test_filter_ints_return_value(self):\n        v = [3, -4, 0, -2, 5, 0, 8, -1]\n\n        result = filter_ints(v)\n\n        assert_list_equal([3, 5, 8], result)\n\n"
+    },
+    {
+        "case number": "23",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "24",
+        "code": "#!/usr/bin/env python\n# encoding: utf-8\n\n\ndef gcd(m: int, n: int):\n    \"\"\"\n    compute the greatest common divisor of m and n;\n    :param m:\n    :param n:\n    :return:\n    \"\"\"\n    while n > 0:\n        rem = m % n\n        m = n\n        n = rem\n    return m\n\n",
+        "unittest": "#!/usr/bin/env python\n# encoding: utf-8\nfrom unittest import TestCase\n\nfrom gcd import gcd\n\n\nclass TestGcd(TestCase):\n    def test_gcd(self):\n        self.assertEqual(gcd(10, 3), 1)\n        self.assertEqual(gcd(10, 4), 2)\n        self.assertEqual(gcd(10, 1), 1)\n        self.assertEqual(gcd(10, 5), 5)\n\n"
+    },
+    {
+        "case number": "25",
+        "code": "# coding: utf-8\n\"\"\"\nhttps://en.wikipedia.org/wiki/Factorial\n\n0! = 1\n1! = 1\nn! = n * (n - 1) * (n - 2) * (n - 3) * ... * 3 * 2 * 1\n\"\"\"\n\n\ndef factorial(n):\n    if not isinstance(n, int) or n < 0:\n        raise ValueError('n is invalid')\n\n    # Base case\n    if n <= 1:\n        return 1\n\n    # Recursive case\n    return n * factorial(n - 1)\n\n\ndef factorial_for_loop(n):\n    ans = 1\n    for i in range(1, n + 1):\n        ans = ans * i\n    return ans\n\n",
+        "unittest": "# coding: utf-8\nimport math\nimport random\nimport unittest\n\nfrom algorithms.math.factorial import factorial\nfrom algorithms.math.factorial import factorial_for_loop\n\n\nclass TestCase(unittest.TestCase):\n    def test(self):\n        with self.assertRaises(ValueError):\n            factorial(-1)\n\n        with self.assertRaises(ValueError):\n            factorial(0.5)\n\n        with self.assertRaises(ValueError):\n            factorial('abc')\n\n        self.assertEqual(factorial(0), 1)\n        self.assertEqual(factorial(1), 1)\n        self.assertEqual(factorial(2), 2)\n        self.assertEqual(factorial(3), 6)\n        self.assertEqual(factorial(4), 24)\n        self.assertEqual(factorial(5), 120)\n        self.assertEqual(factorial(6), 720)\n        self.assertEqual(factorial(7), 5040)\n        self.assertEqual(factorial(8), 40320)\n        self.assertEqual(factorial(9), 362880)\n        self.assertEqual(factorial(10), 3628800)\n\n    def test_2(self):\n        rand_i = random.randint(0, 100)\n        self.assertEqual(factorial(rand_i), math.factorial(rand_i))\n\n\nclass TestCase2(unittest.TestCase):\n    def test(self):\n        self.assertEqual(factorial_for_loop(0), 1)\n        self.assertEqual(factorial_for_loop(1), 1)\n        self.assertEqual(factorial_for_loop(2), 2)\n        self.assertEqual(factorial_for_loop(3), 6)\n        self.assertEqual(factorial_for_loop(4), 24)\n        self.assertEqual(factorial_for_loop(5), 120)\n        self.assertEqual(factorial_for_loop(6), 720)\n        self.assertEqual(factorial_for_loop(7), 5040)\n        self.assertEqual(factorial_for_loop(8), 40320)\n        self.assertEqual(factorial_for_loop(9), 362880)\n        self.assertEqual(factorial_for_loop(10), 3628800)\n\n    def test_2(self):\n        rand_i = random.randint(0, 10000)\n        self.assertEqual(factorial_for_loop(rand_i), math.factorial(rand_i))\n\n\nif __name__ == '__main__':\n    unittest.main()\n\n"
+    },
+    {
+        "case number": "26",
+        "code": "from collections import Counter\nfrom collections.abc import Iterator\n\n\ndef find_duplicates(items: Iterator[str]) -> list[str]:\n    return [i for i, count in Counter(items).items() if count > 1]\n\n",
+        "unittest": "from qgreenland.constants.paths import COMPILE_PACKAGE_DIR\nfrom qgreenland.util import layer as layer_util\n\n\ndef test_layer_compile_dir(raster_layer_node):\n    expected = COMPILE_PACKAGE_DIR / \"Group\" / \"Subgroup\" / \"Example raster\"\n    actual = layer_util.get_layer_compile_dir(raster_layer_node)\n\n    assert expected == actual\n\n\ndef test_vector_or_raster(online_layer_node):\n    assert layer_util.vector_or_raster(online_layer_node) == \"Raster\"\n\n"
+    },
+    {
+        "case number": "27",
+        "code": "def swap_case(string):\n    \"\"\"\n    Convert all lowercase letters to upercase letters and vice versa.\n    \"\"\"\n    return string.swapcase()\n\n\nif __name__ == '__main__':\n    s = input()\n    result = swap_case(s)\n    print(result)\n\n",
+        "unittest": "#!/bin/python3\n\nimport math\nimport os\nimport random\nimport re\nimport sys\n\n\n\n# The function is expected to return a STRING.\n# The function accepts STRING sentence as parameter.\ndef reverse_words_order_and_swap_cases(sentence):\n    return reverse_words(sentence.swapcase())\n\ndef reverse_words(sentence):\n    return \" \".join(reversed(sentence.split(\" \")))\n\nif __name__ == '__main__':\n    fptr = open(os.environ['OUTPUT_PATH'], 'w')\n\n    sentence = input()\n\n    result = reverse_words_order_and_swap_cases(sentence)\n\n    fptr.write(result + '\\n')\n\n    fptr.close()\n\n"
+    },
+    {
+        "case number": "28",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "29",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "30",
+        "code": "def add_num(num1, num2):\n    return num1 + num2\n\n\ndef is_positive(num):\n    return num > 0\n\n",
+        "unittest": "# test_sample.py \u30c6\u30b9\u30c8\u3092\u3059\u308b\u5074\u306e\u30b3\u30fc\u30c9\nimport unittest\nimport sample\n\n\nclass TestNumberFuncs(unittest.TestCase):\n\n    def test_add_num(self):\n        \"\"\"\n        add_num\u306e\u5358\u4f53\u30c6\u30b9\u30c8\n        \"\"\"\n        self.assertEqual(7, sample.add_num(3, 4))\n\n    def test_is_positive(self):\n        \"\"\"\n        is_num\u306e\u5358\u4f53\u30c6\u30b9\u30c8\n        \"\"\"\n        self.assertTrue(sample.is_positive(3))\n        self.assertFalse(sample.is_positive(0))\n        self.assertFalse(sample.is_positive(-1))\n\n"
+    },
+    {
+        "case number": "31",
+        "code": "def is_prime(number):\n    if number < 0 or number in (0, 1):\n        return False\n\n    for element in range(2, number):\n        if number % element == 0:\n            return False\n\n    return True\n\n",
+        "unittest": "import pytest\n\nfrom primes import is_prime\n\n\n@pytest.fixture()\ndef prime_numbers():\n    return [3, 5, 7]\n\n\n@pytest.fixture()\ndef non_prime_numbers():\n    return [8, 0, 1]\n\n\n@pytest.fixture()\ndef negative_numbers():\n    return [-1, -3, -6]\n\n\ndef test_is_prime_true(prime_numbers):\n    for number in prime_numbers:\n        assert is_prime(number)\n\n\ndef test_is_prime_false(non_prime_numbers, negative_numbers):\n    for number in non_prime_numbers:\n        assert not is_prime(number)\n\n    for number in negative_numbers:\n        assert not is_prime(number)\n\n"
+    },
+    {
+        "case number": "32",
+        "code": "'''\nGiven a non-negative integer x, compute and return the square root of x.\n\nSince the return type is an integer, the decimal digits are truncated,\n\nand only the integer part of the result is returned\n\nExample 1:\n\nInput: 4\nOutput: 2\nExample 2:\n\nInput: 8\nOutput: 2\nExplanation: The square root of 8 is 2.82842..., and since\n             the decimal part is truncated, 2 is returned.\n'''\n\nimport math\n\nclass SolutionLibrary:\n    def mySqrt(self, x):\n        return int(math.sqrt(x))\n\nclass Solution:\n    # Binary Search\n    def mySqrt(self, x):\n        \"\"\"\n        :type x: int\n        :rtype: int\n        \"\"\"\n        if x == 0:\n            return 0\n\n        left = 1\n        right = x // 2 + 1\n\n        while left <= right:\n            mid = (right + left) // 2\n            if mid ** 2 <= x < (mid+1) ** 2:\n                return mid\n\n            if mid ** 2 > x:\n                right = mid - 1\n            else:\n                left = mid + 1\n\n",
+        "unittest": "import unittest\nfrom Sqrtx_069 import Solution\n\n'''\nGiven a non-negative integer x, compute and return the square root of x.\n\nSince the return type is an integer, the decimal digits are truncated,\n\nand only the integer part of the result is returned\n\nExample 1:\n\nInput: 4\nOutput: 2\nExample 2:\n\nInput: 8\nOutput: 2\nExplanation: The square root of 8 is 2.82842..., and since\n             the decimal part is truncated, 2 is returned.\n'''\n\n\nclass Test_Case(unittest.TestCase):\n\n    def test_answer_01(self):\n        x = 4\n        result = 2\n        self.assertEqual(Solution().mySqrt(x), result)\n\n    def test_answer_02(self):\n        x = 8\n        result = 2\n        self.assertEqual(Solution().mySqrt(x), result)\n\n    def test_answer_03(self):\n        x = 0\n        result = 0\n        self.assertEqual(Solution().mySqrt(x), result)\n\n    def test_answer_04(self):\n        x = 100\n        result = 10\n        self.assertEqual(Solution().mySqrt(x), result)\n\n    def test_answer_05(self):\n        x = 1\n        result = 1\n        self.assertEqual(Solution().mySqrt(x), result)\n\nif __name__ == '__main__':\n    unittest.main()\n\n"
+    },
+    {
+        "case number": "33",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "34",
+        "code": "def remove_duplicates(listofElements):\n    # Create an empty list to store unique elements\n    uniqueList = []\n\n    # Iterate over the original list and for each element\n    # add it to uniqueList, if its not already there.\n    for elem in listofElements:\n        if elem not in uniqueList:\n            uniqueList.append(elem)\n\n    # Return the list of unique elements\n    return uniqueList\n",
+        "unittest": "from django.contrib.auth.models import Permission\nfrom django.contrib.contenttypes.models import ContentType\nfrom django.shortcuts import resolve_url as r\nfrom model_mommy import mommy\n\nfrom sgce.core.tests.base import LoggedInTestCase\nfrom django.contrib.auth import get_user_model\n\n\nclass UserListWithoutPermission(LoggedInTestCase):\n    def setUp(self):\n        super(UserListWithoutPermission, self).setUp()\n        self.response = self.client.get(r('accounts:user-list'))\n\n    def test_get(self):\n        \"\"\"Must return 403 HttpError (No permission)\"\"\"\n        self.assertEqual(403, self.response.status_code)\n\n\n# Permission: auth.view_user\nclass UserListWithPermission(LoggedInTestCase):\n    def setUp(self):\n        super(UserListWithPermission, self).setUp()\n        # permission required: profile.can_enable_or_disable_user\n        content_type = ContentType.objects.get_for_model(get_user_model())\n        permission = Permission.objects.get(\n            codename = 'view_user',\n            content_type = content_type,\n        )\n\n        self.user_logged_in.user_permissions.add(permission)\n        self.user_logged_in.refresh_from_db()\n\n\nclass UserListGet(UserListWithPermission):\n    def setUp(self):\n        super(UserListGet, self).setUp()\n        get_user_model().objects.create_user(\n            username = 'user1',\n            email = 'user1@domain.com',\n            password = 'user1password',\n            first_name = 'User',\n            last_name = 'One'\n        )\n        get_user_model().objects.create_user(\n            username = 'user2',\n            email = 'user2@domain.com',\n            password = 'user2password',\n            first_name = 'User',\n            last_name = 'Two'\n        )\n        self.response = self.client.get(r('accounts:user-list'))\n\n    def test_get(self):\n        self.assertEqual(200, self.response.status_code)\n\n    def test_template(self):\n        self.assertTemplateUsed(self.response, 'accounts/user/list.html')\n\n    def test_html(self):\n        contents = [\n            (1, 'User One'),\n            (1, 'user1@domain.com'),\n            (1, 'User Two'),\n            (1, 'user2@domain.com'),\n            # Must have a link to create a new user.\n            (1, 'href=\"{}\"'.format(r('accounts:user-create'))),\n        ]\n\n        for count, expected in contents:\n            with self.subTest():\n                self.assertContains(self.response, expected, count)\n\n    def test_context(self):\n        variables = ['users']\n\n        for key in variables:\n            with self.subTest():\n                self.assertIn(key, self.response.context)\n"
+    },
+    {
+        "case number": "35",
+        "code": "def max_dict(dictionnaire):\n    \"\"\"Retourne la valeur maximale d'un dictionnaire\"\"\"\n    \n    max_value = 0\n    for i, value in enumerate(dictionnaire.values()):\n        if i == 0 or value > max_value:\n            max_value = value\n\n    return max_value\n\n",
+        "unittest": "from max_dict import max_dict\n\n\n\ndef test_max_dict():\n\n    #Argent de poche\n    dictionnaire = {\"Alfred\" : 100, \"Julie\" : 150, \"Antoine\" : 20}\n    print(max_dict(dictionnaire))\n\n    #Magasin de luxe\n    luxe = {\"Bague\" : 3200, \"Montre\" : 5600, \"Sac \u00e0 main\" : 1400}\n    print(max_dict(luxe))\n\n\n\ntest_max_dict()\n\n"
+    },
+    {
+        "case number": "36",
+        "code": "def fizz_buzz(value):\n    if(value % 3 == 0 and value % 5 == 0):\n        return \"FizzBuzz\"\n    elif (value % 3 == 0):\n        return \"Fizz\"\n    elif(value % 5 == 0):\n        return \"Buzz\"\n    else:\n        return value\n",
+        "unittest": "import pytest\n\ndef fizz_buzz(value):\n    if(value % 3 == 0 and value % 5 == 0):\n        return \"FizzBuzz\"\n    elif (value % 3 == 0):\n        return \"Fizz\"\n    elif(value % 5 == 0):\n        return \"Buzz\"\n    else:\n        return value\n\n \n@pytest.mark.parametrize(\"input\", [3,6,9,12,18,21,24,27,33,36,39,42,48])  \n# @pytest.mark.parametrize(\"input\", [3,6,9,12,18,21,24,27,30,33,36,39,42,45,48])  \ndef test_multiples_of_3_return_Fizz(input):    \n    assert \"Fizz\" == fizz_buzz(input)\n    \n@pytest.mark.parametrize(\"input\", [15,30,45])  \ndef test_multiples_of_3_and_5_return_FizzBuzz(input):    \n    assert \"FizzBuzz\" == fizz_buzz(input)\n    \n@pytest.mark.parametrize(\"input\", [5,10,20,25,35,40,50])  \ndef test_multiples_of_5_return_Buzz(input):    \n    assert \"Buzz\" == fizz_buzz(input)\n    \n@pytest.mark.parametrize(\"input\", [1,2,4,7,8,11,13,14,16,17,19,22,23,26,28,29,31,32,34,37,38,41,43,44,46,47,49])  \ndef test_otherwise_returns_input(input):    \n    assert input == fizz_buzz(input)\n    \n    \n@pytest.mark.parametrize(\"input, expected\",\n                         [(1, 1),\n                          (2, 2),\n                          (3, \"Fizz\"),\n                          (4, 4),\n                          (5, \"Buzz\"),\n                          (15,\"FizzBuzz\")])\ndef test_multiple_inputs(input, expected):\n    assert expected == fizz_buzz(input)\n    print(f\"{input}: {expected}\")\n"
+    },
+    {
+        "case number": "37",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "38",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "39",
+        "code": "def is_prime(number):\n    if number < 0 or number in (0, 1):\n        return False\n\n    for element in range(2, number):\n        if number % element == 0:\n            return False\n\n    return True\n\n",
+        "unittest": "import pytest\n\nfrom primes import is_prime\n\n\n@pytest.fixture()\ndef prime_numbers():\n    return [3, 5, 7]\n\n\n@pytest.fixture()\ndef non_prime_numbers():\n    return [8, 0, 1]\n\n\n@pytest.fixture()\ndef negative_numbers():\n    return [-1, -3, -6]\n\n\ndef test_is_prime_true(prime_numbers):\n    for number in prime_numbers:\n        assert is_prime(number)\n\n\ndef test_is_prime_false(non_prime_numbers, negative_numbers):\n    for number in non_prime_numbers:\n        assert not is_prime(number)\n\n    for number in negative_numbers:\n        assert not is_prime(number)\n\n"
+    },
+    {
+        "case number": "40",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "41",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "42",
+        "code": "def add_one(number):\n    return number + 1\n",
+        "unittest": "# the inclusion of the tests module is not meant to offer best practices for\n# testing in general, but rather to support the `find_packages` example in\n# setup.py that excludes installing the \"tests\" package\n\nimport unittest\n\nfrom sample.simple import add_one\n\n\nclass TestSimple(unittest.TestCase):\n\n    def test_add_one(self):\n        self.assertEqual(add_one(5), 6)\n\n\nif __name__ == '__main__':\n    unittest.main()\n\n"
+    },
+    {
+        "case number": "43",
+        "code": "def getPairsCount(arr, n, sum):      \n    count, s = 0, {}\n    for i in range(0, n): \n        temp = sum-arr[i] \n        if (temp in s): \n            count += s[temp]\n        if arr[i] not in s:\n        \ts[arr[i]] = 1\n        else:\n        \ts[arr[i]] += 1\n    return count\n\nprint(getPairsCount([1, 1, 1, 1, 1], 5, 2))\n",
+        "unittest": "MAX = 100000\nprime = [True for i in range(MAX + 1)]\nappend_prime = []\ndef Sieve(): \n    prime[1] = False\n    for p in range(2, MAX+1):  \n        if (prime[p] == True):\n            i = p * 2\n            while(i <= MAX): \n                prime[i] = False\n                i = i + p\n    prev = 0\n    for i in range(MAX+1):\n        if prime[i]:\n            append_prime.append(i+prev)\n            prev = append_prime[-1]\n\nq= int(input())\nSieve()\nfor i in range(q):\n    n = int(input())\n    print(append_prime[n])\n"
+    },
+    {
+        "case number": "44",
+        "code": "DIGITS = '0123456789abcdef'\n\n\ndef convert_to_base(decimal_number, base):\n    remainder_stack = []\n\n    while decimal_number > 0:\n        remainder = decimal_number % base\n        remainder_stack.append(remainder)\n        decimal_number = decimal_number // base\n\n    new_digits = []\n    while remainder_stack:\n        new_digits.append(DIGITS[remainder_stack.pop()])\n\n    return ''.join(new_digits)\n\n\nconvert_to_base(25, 2)  # => '11001'\nconvert_to_base(25, 16)  # => '19'\n\n",
+        "unittest": "import unittest\n\nfrom base_conversion import convert_to_base\n\n\nclass TestCorrectness(unittest.TestCase):\n\n    def assert_matches_format_builtin(self, base, format_string):\n        for i in range(1, 100):\n            self.assertEqual(convert_to_base(i, base), format_string.format(i))\n\n    def test_converts_to_binary(self):\n        self.assert_matches_format_builtin(2, '{0:b}')\n\n    def test_converts_to_octal(self):\n        self.assert_matches_format_builtin(8, '{0:o}')\n\n    def test_converts_to_hex(self):\n        self.assert_matches_format_builtin(16, '{0:x}')\n\n\nif __name__ == '__main__':\n    unittest.main()\n\n"
+    },
+    {
+        "case number": "45",
+        "code": "def hypotenuse(a, b):\n    \"\"\"Calcule la valeur de l'hypot\u00e9nuse d'un triangle rectangle\"\"\"\n\n    return (a**2 + b**2)**0.5\n\n",
+        "unittest": "from hypotenuse import hypotenuse\n\na, b = 3, 4\nprint(hypotenuse(a,b))\n\na, b = 5, 6\nprint(hypotenuse(a,b))\n\na, b = 1, 2\nprint(hypotenuse(a,b))\n\na, b = 1, 50\nprint(hypotenuse(a,b))\n\n"
+    },
+    {
+        "case number": "46",
+        "code": "def fib(n):\n    assert 0 <= n <= 10 ** 7\n\n    if n <= 1:\n        return n\n    else:\n        fib_list = [0] * (n+1)\n        fib_list[0] = 0\n        fib_list[1] = 1\n        for i in range(2, n+1):\n            fib_list[i] = (fib_list[i-2] + fib_list[i-1]) % 10\n        return fib_list[n]\n\n\nif __name__ == '__main__':\n    input_n = int(input())\n    print(fib(input_n))\n",
+        "unittest": "import unittest\nimport fibboaaci\n\nclass TestLastDigitOfFibonacciNumber(unittest.TestCase):\n    def test_small(self):\n        for n in range(20):\n            self.assertEqual(last_digit_of_fibonacci_number_naive(n),\n                             last_digit_of_fibonacci_number(n))\n\n    def test_large(self):\n        for (n, last_digit) in [(100, 5), (139, 1), (91239, 6), (170, 5)]:\n            self.assertEqual(last_digit_of_fibonacci_number(n), last_digit)\n\n\nif __name__ == '__main__':\n    unittest.main()\n"
+    },
+    {
+        "case number": "47",
+        "code": "from toolz import curry\n\n\n@curry\ndef median(xs):\n    \"\"\"Returns the median of the given list of numbers\"\"\"\n    _xs = sorted(xs)\n    n = len(xs)\n    i = n // 2\n    if n < 1:\n        return None\n\n    if n % 2 == 0:\n        return (_xs[i - 1] + _xs[i]) / 2.0\n\n    return _xs[i]\n\n",
+        "unittest": "from ramda.median import median\nfrom ramda.private.asserts import assert_equal\n\n\ndef test_median():\n    assert_equal(median([2, 9, 7]), 7)\n    assert_equal(median([7, 2, 10, 9]), 8)\n    assert_equal(median([]), None)\n\n"
+    },
+    {
+        "case number": "48",
+        "code": "from collections import deque\n\n\ndef is_palindrome(characters):\n    character_deque = deque(characters)\n\n    while len(character_deque) > 1:\n        first = character_deque.popleft()\n        last = character_deque.pop()\n        if first != last:\n            return False\n\n    return True\n\n\nis_palindrome('lsdkjfskf')   # => False\nis_palindrome('radar')   # => True\n\n",
+        "unittest": "import unittest\n\nfrom palindromes import is_palindrome\n\ncases = (\n    ('lsdkjfskf', False),\n    ('radar', True),\n    ('racecar', True),\n)\n\n\nclass TestCorrectness(unittest.TestCase):\n    def test_identifies_palindromes(self):\n        for word, expectation in cases:\n            self.assertEqual(is_palindrome(word), expectation)\n\n"
+    },
+    {
+        "case number": "49",
+        "code": "\"\"\"\nProblem: https://en.wikipedia.org/wiki/Modular_exponentiation\n\"\"\"\n\ndef modular_exponentiation(base, exp, mod):\n\tif exp < 1:\n\t\traise ValueError(\"Exponentiation should be ve+ int\")\n\tif mod == 1:\n\t\treturn 0\n\telif mod < 1:\n\t\traise ValueError(\"Modulus should be ve+ int\")\n\t#Initialize result to 1\n\tresult = 1\n\tbase %= mod\n\twhile exp > 0:\n\t\t#multiply base to result if exp is odd\n\t\tif exp % 2 == 1:\n\t\t\tresult = (result * base) % mod\n\t\t#Double base and half exp\n\t\texp = exp >> 1\n\t\tbase = (base ** 2) % mod\n\treturn result\n",
+        "unittest": "import os, sys\nimport unittest\nsys.path.append(os.path.join(os.getcwd(), os.path.pardir))\nfrom misc import modular_exponentiation as me\n\nclass TestLCS(unittest.TestCase):\n    def test_modular_exponentiation(self):\n    \tself.assertEqual(me.modular_exponentiation(2, 10, 100), 24)\n    \tself.assertEqual(me.modular_exponentiation(2, 200, 10), 6)\n    \tself.assertEqual(me.modular_exponentiation(5, 20, 1), 0)\n    \t#self.assertEqual(me.modular_exponentiation(8, 1, 10), 8)\n    \tself.assertRaises(ValueError, me.modular_exponentiation, 12, -1, 10)\n    \tself.assertRaises(ValueError, me.modular_exponentiation, 12, 5, 0)\n\nif __name__ == \"__main__\":\n    unittest.main()\n"
+    },
+    {
+        "case number": "50",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "51",
+        "code": "\"\"\"\nYou get a string and need to return its number of vowels.\nFor this test, we will only consider a, e, i, o and u as vowels.\n\nFor example:\n\nInput: \"Alabama\"\nOutput: 4\n\nInput: \"Caserta\"\nOutput: 3\n\n\"\"\"\n\n\n#For Loop\ndef count(input_string):\n    num_vowels = 0\n    vowels = ['a', 'e', 'i', 'o', 'u']\n    for letter in input_string.lower():\n        if letter in vowels:\n            num_vowels += 1\n\n    return num_vowels\n\n",
+        "unittest": "from Company.vowel_count import count\n\n\ndef test_count():\n    assert count('Alabama') == 4\n    assert count('Caserta') == 3\n\n"
+    },
+    {
+        "case number": "52",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "53",
+        "code": "def add(x: int, y: int) -> int:\n    return x + y\n\n",
+        "unittest": "from python_boilerplate import add\n\n\ndef test_add():\n    assert add(1, 1) == 2\n\n"
+    },
+    {
+        "case number": "54",
+        "code": "def hamming_sum(s0, s1):\n    if len(s0) != len(s1):\n        raise ValueError()\n    return sum(c0 != c1 for (c0, c1) in zip(s0, s1))\n\ndef hamming_loop(s0, s1):\n    if len(s0) != len(s1):\n        raise ValueError()\n    count = 0\n    for i in range(len(s0)):\n        count += (s0[i] != s1[i])\n    return count\n\n",
+        "unittest": "from __future__ import print_function\nfrom timeit import timeit\n\nprint(\"*\" * 80)\nprint(\"python hamming_sum(): %.2f\" % timeit('hamming_sum(\"qwertyuio\", \"asdfghjkl\")',\n                                            'from hamming import hamming_sum'))\nprint(\"cython hamming_sum(): %.2f\" % timeit('hamming_sum(\"qwertyuio\", \"asdfghjkl\")',\n                                            'from hamming_cython import hamming_sum'))\nprint(\"optimal hamming_sum(): %.2f\" % timeit('hamming_sum(\"qwertyuio\", \"asdfghjkl\")',\n                                            'from hamming_cython_solution import hamming_sum'))\nprint(\"-\" * 80)\nprint(\"python hamming_loop(): %.2f\" % timeit('hamming_loop(\"qwertyuio\", \"asdfghjkl\")',\n                                             'from hamming import hamming_loop'))\nprint(\"cython hamming_loop(): %.2f\" % timeit('hamming_loop(\"qwertyuio\", \"asdfghjkl\")',\n                                             'from hamming_cython import hamming_loop'))\nprint(\"optimal hamming_loop(): %.2f\" % timeit('hamming_loop(b\"qwertyuio\", b\"asdfghjkl\")',\n                                             'from hamming_cython_solution import hamming_loop'))\nprint(\"*\" * 80)\n\n"
+    },
+    {
+        "case number": "55",
+        "code": "def fib(n: int) -> int:\n    if n < 2:\n        return n\n    else:\n        return fib(n - 1) + fib(n - 2)\n\n",
+        "unittest": "from {{cookiecutter.repo_name}}.{{cookiecutter.repo_name}} import fib\n\n\ndef test_fib() -> None:\n    assert fib(0) == 0\n    assert fib(1) == 1\n    assert fib(2) == 1\n    assert fib(3) == 2\n    assert fib(4) == 3\n    assert fib(5) == 5\n    assert fib(10) == 55\n\n"
+    },
+    {
+        "case number": "56",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "57",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "58",
+        "code": "from toolz import curry\n\n\n@curry\ndef intersection(list1, list2):\n    \"\"\"Combines two lists into a set (i.e. no duplicates) composed of those\n    elements common to both lists\"\"\"\n    return list(set(list1).intersection(set(list2)))\n\n",
+        "unittest": "from ramda.intersection import intersection\nfrom ramda.private.asserts import *\n\n\ndef test_intersection():\n    assert_equal(intersection([1, 2, 3, 4, 4], [7, 6, 5, 4, 3, 4]), [3, 4])\n\n"
+    },
+    {
+        "case number": "59",
+        "code": "def is_prime(number):\n    if number < 0 or number in (0, 1):\n        return False\n\n    for element in range(2, number):\n        if number % element == 0:\n            return False\n\n    return True\n\n",
+        "unittest": "import pytest\n\nfrom primes import is_prime\n\n\n@pytest.fixture()\ndef prime_numbers():\n    return [3, 5, 7]\n\n\n@pytest.fixture()\ndef non_prime_numbers():\n    return [8, 0, 1]\n\n\n@pytest.fixture()\ndef negative_numbers():\n    return [-1, -3, -6]\n\n\ndef test_is_prime_true(prime_numbers):\n    for number in prime_numbers:\n        assert is_prime(number)\n\n\ndef test_is_prime_false(non_prime_numbers, negative_numbers):\n    for number in non_prime_numbers:\n        assert not is_prime(number)\n\n    for number in negative_numbers:\n        assert not is_prime(number)\n\n"
+    },
+    {
+        "case number": "60",
+        "code": "def add(n: int, m: int) -> int:\n    return n + m\n\n",
+        "unittest": "\"\"\"A module with no PythonTA errors.\"\"\"\n\n\nclass MyClass:\n    \"\"\"This is a class.\"\"\"\n\n    name: str\n    value: int\n\n    def __init__(self) -> None:\n        self.name = \"A\"\n        self.value = 10\n\n"
+    },
+    {
+        "case number": "61",
+        "code": "OPENING = '('\n\n\ndef is_balanced(parentheses):\n    stack = []\n    for paren in parentheses:\n        if paren == OPENING:\n            stack.append(paren)\n        else:\n            try:\n                stack.pop()\n            except IndexError:  # too many closing parens\n                return False\n    return len(stack) == 0  # false if too many opening parens\n\n\nis_balanced('((()))')  # => True\nis_balanced('(()')  # => False\nis_balanced('())')  # => False\n\n",
+        "unittest": "import unittest\n\nfrom balanced_parentheses import is_balanced\n\n\nclass TestCorrectness(unittest.TestCase):\n\n    def test_identifies_valid_sequence(self):\n        self.assertTrue(is_balanced('()'))\n        self.assertTrue(is_balanced('()(())'))\n\n    def test_identifies_left_imbalance(self):\n        self.assertFalse(is_balanced('(()'))\n\n    def test_identifies_right_imbalance(self):\n        self.assertFalse(is_balanced('())'))\n\n\nif __name__ == '__main__':\n    unittest.main()\n\n"
+    },
+    {
+        "case number": "62",
+        "code": "\ndef difference(seq):\n    '''Returns the difference between consecutive elements in `seq`.\n    i.e., first derivative.\n    '''\n    result = [ ]\n    for i in range(len(seq) - 1):\n        result.append(seq[i+1] - seq[i])\n    return type(seq)(result)\n\n",
+        "unittest": "from chiplotle import *\n\ndef test_difference_01( ):\n    '''Computes the difference of a list of ints.'''\n    a = [1, 2, 3, 4]\n    t = mathtools.difference(a)\n    assert t == [1, 1, 1]\n    assert isinstance(t, list)\n\n\ndef test_difference_02( ):\n    '''Computes the difference of a CoordinateArray.'''\n    a = CoordinateArray([(1, 2), (3, 4), (4, 4)])\n    t = mathtools.difference(a)\n    assert t == CoordinateArray([(2, 2), (1, 0)])\n    assert isinstance(t, CoordinateArray)\n\n\ndef test_difference_03( ):\n    '''The argument can be empty.'''\n    t = mathtools.difference([ ])\n    assert t == [ ]\n    assert isinstance(t, list)\n\n\ndef test_difference_04( ):\n    '''The argument can have one element.'''\n    t = mathtools.difference([2])\n    assert t == [ ]\n    assert isinstance(t, list)\n\n"
+    },
+    {
+        "case number": "63",
+        "code": "def fib(n: int) -> int:\n    if n < 2:\n        return n\n    else:\n        return fib(n - 1) + fib(n - 2)\n\n",
+        "unittest": "from {{cookiecutter.repo_name}}.{{cookiecutter.repo_name}} import fib\n\n\ndef test_fib() -> None:\n    assert fib(0) == 0\n    assert fib(1) == 1\n    assert fib(2) == 1\n    assert fib(3) == 2\n    assert fib(4) == 3\n    assert fib(5) == 5\n    assert fib(10) == 55\n\n"
+    },
+    {
+        "case number": "64",
+        "code": "\"\"\"\nYou get a string and need to return its number of vowels.\nFor this test, we will only consider a, e, i, o and u as vowels.\n\nFor example:\n\nInput: \"Alabama\"\nOutput: 4\n\nInput: \"Caserta\"\nOutput: 3\n\n\"\"\"\n\n\n#For Loop\ndef count(input_string):\n    num_vowels = 0\n    vowels = ['a', 'e', 'i', 'o', 'u']\n    for letter in input_string.lower():\n        if letter in vowels:\n            num_vowels += 1\n\n    return num_vowels\n\n",
+        "unittest": "from Company.vowel_count import count\n\n\ndef test_count():\n    assert count('Alabama') == 4\n    assert count('Caserta') == 3\n\n"
+    },
+    {
+        "case number": "65",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "66",
+        "code": "def super_digit(n):\n    while len(str(n)) > 1:\n        total = 0\n        for digit in str(n):\n            total += int(digit)\n        n = total\n    return n\n\n",
+        "unittest": "from super_digit import super_digit\n\n#On calcule les super digits des 1000 premiers nombres\nfor i in range(1, 1001):\n    print(\"{} => {}\".format(i, super_digit(i)))\n\n"
+    },
+    {
+        "case number": "67",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "68",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "69",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "70",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "71",
+        "code": "import math\n\ndef circum_circle_radius(a, b, c):\n  # Circumcircle radius calculation from http://www.mathopenref.com/trianglecircumcircle.html\n  if a > 0 and b > 0 and c > 0:\n    try:\n      divider = math.sqrt(math.fabs((a+b+c)*(b+c-a)*(c+a-b)*(a+b-c)))\n      return (a * b * c) / divider\n    except ZeroDivisionError:\n      return 10000\n  else:\n    return 10000\n\n",
+        "unittest": "from curvature.radiusmath import circum_circle_radius \n\ndef test_circum_circle_radius_zero_lengths():\n  assert circum_circle_radius(0, 0, 0) == 10000\n\ndef test_circum_circle_radius_zero_division():\n  assert circum_circle_radius(0.13430093277996386, 0.13430093277996386, 0.2686018655599277) == 10000\n"
+    },
+    {
+        "case number": "72",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "73",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "74",
+        "code": "#!/usr/bin/env python\n\ndef lstartswith(l1, l2):\n    if len(l2) > len(l1):\n        return False\n    return l1[:len(l2)] == l2\n\n\ndef lendswith(l1, l2):\n    if len(l2) > len(l1):\n        return False\n    return l1[len(l1) - len(l2):] == l2\n\n",
+        "unittest": "#!/usr/bin/env python\n\nimport unittest\n\nimport dlint\n\n\nclass TestUtil(unittest.TestCase):\n\n    def test_lendswith(self):\n        assert not dlint.util.lendswith([1, 2], [1, 2, 3])\n        assert not dlint.util.lendswith([1, 2, 3], [1, 2])\n\n        assert dlint.util.lendswith([1, 2, 3], [2, 3])\n\n\nif __name__ == \"__main__\":\n    unittest.main()\n\n"
+    },
+    {
+        "case number": "75",
+        "code": "def is_prime(number):\n    if number < 0 or number in (0, 1):\n        return False\n\n    for element in range(2, number):\n        if number % element == 0:\n            return False\n\n    return True\n\n",
+        "unittest": "import pytest\n\nfrom primes import is_prime\n\n\n@pytest.fixture()\ndef prime_numbers():\n    return [3, 5, 7]\n\n\n@pytest.fixture()\ndef non_prime_numbers():\n    return [8, 0, 1]\n\n\n@pytest.fixture()\ndef negative_numbers():\n    return [-1, -3, -6]\n\n\ndef test_is_prime_true(prime_numbers):\n    for number in prime_numbers:\n        assert is_prime(number)\n\n\ndef test_is_prime_false(non_prime_numbers, negative_numbers):\n    for number in non_prime_numbers:\n        assert not is_prime(number)\n\n    for number in negative_numbers:\n        assert not is_prime(number)\n\n"
+    },
+    {
+        "case number": "76",
+        "code": "def pow1(x, n: int):\n    \"\"\"\n    compute x ^ n\n    \"\"\"\n    if n == 0:\n        return 1\n    square = x * x\n    if n % 2:\n        return pow1(square, n // 2) * x\n    return pow1(square, n // 2)\n\n\ndef pow2(x, n: int):\n    \"\"\"\n    compute x ^ n\n    \"\"\"\n    if n == 0:\n        return 1\n    tmp = pow2(x, n // 2)\n    if n % 2:\n        return tmp * tmp * x\n    return tmp * tmp\n\n",
+        "unittest": "import math\nimport random\nfrom unittest import TestCase\nfrom pow import pow1, pow2\n\n\nclass Test(TestCase):\n    def test_pow1(self):\n        x = random.randint(1, 10)\n        for n in range(10):\n            self.assertEqual(pow1(x, n), math.pow(x, n))\n\n    def test_pow2(self):\n        x = random.randint(1, 10)\n        for n in range(10):\n            self.assertEqual(pow2(x, n), math.pow(x, n))\n\n"
+    },
+    {
+        "case number": "77",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "78",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "79",
+        "code": "def binary_to_decimal(binary):\n    \"\"\"Convertit un nombre en base binaire en un nombre en base d\u00e9cimale\"\"\"\n    \n    if \"0b\" in binary:\n        binary = binary.replace(\"0b\", \"\")\n        \n    total = 0\n    for i, bit in enumerate(binary[::-1]):\n        total += int(bit) * 2**i\n\n    return total\n\n",
+        "unittest": "from binary_to_decimal import *\n\n#On convertit les 100 premiers nombres binaires en nombres d\u00e9cimaux\nfor i in range(100):\n    i = bin(i)\n    print(binary_to_decimal(i))\n\n"
+    },
+    {
+        "case number": "80",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "81",
+        "code": "GRADE_MAPPINGS = {\n    'A': 12.0,\n    'A-': 11.0,\n    'B+': 10.0,\n    'B': 9.0,\n    'B-': 8.0,\n    'C+': 7.0,\n    'C': 6.0,\n    'C-': 5.0,\n    'D': 3.0,\n    'E': 0.0\n}\n\n\ndef numeric_value_for_grade(grade):\n    \"\"\"\n    Based on excerpt from GPA calculation:\n    an A counts as 12 points, A- as 11, B+ as 10, B as 9, B- as 8, C+ as 7,\n    C as 6, C- as 5, D as 3, and E as 0.\n    Sometimes grades can come like this: A /A-\n    \"\"\"\n    letter_grades = [g.strip() for g in grade.split(\"/\")]\n    return sum([GRADE_MAPPINGS[g] for g in letter_grades]) / len(letter_grades)\n\n",
+        "unittest": "from django.test import TestCase\nfrom lib import grades\n\n\nclass GradesTestCase(TestCase):\n\n    def test_numeric_value_for_grade_retrieves_single_letter_grades(self):\n        for grade, value in grades.GRADE_MAPPINGS.iteritems():\n            self.assertEqual(grades.numeric_value_for_grade(grade), value)\n\n    def test_numeric_value_for_grade_handles_in_between_grades(self):\n        self.assertEqual(grades.numeric_value_for_grade(\n            'A/A-'), (11.0 + 12.0) / 2)\n        self.assertEqual(grades.numeric_value_for_grade(\n            'A-/B+'), (10.0 + 11.0) / 2)\n        self.assertEqual(grades.numeric_value_for_grade(\n            'B+/B'), (9.0 + 10.0) / 2)\n        self.assertEqual(grades.numeric_value_for_grade(\n            'B/B-'), (8.0 + 9.0) / 2)\n        self.assertEqual(grades.numeric_value_for_grade(\n            'B-/C+'), (7.0 + 8.0) / 2)\n        self.assertEqual(grades.numeric_value_for_grade(\n            'C+/C'), (6.0 + 7.0) / 2)\n        self.assertEqual(grades.numeric_value_for_grade(\n            'C/C-'), (5.0 + 6.0) / 2)\n        self.assertEqual(grades.numeric_value_for_grade(\n            'C-/D'), (3.0 + 5.0) / 2)\n        self.assertEqual(grades.numeric_value_for_grade(\n            'D/E'), (0.0 + 3.0) / 2)\n\n"
+    },
+    {
+        "case number": "82",
+        "code": "def is_prime(number):\n    if number < 0 or number in (0, 1):\n        return False\n\n    for element in range(2, number):\n        if number % element == 0:\n            return False\n\n    return True\n\n",
+        "unittest": "import pytest\n\nfrom primes import is_prime\n\n\n@pytest.fixture()\ndef prime_numbers():\n    return [3, 5, 7]\n\n\n@pytest.fixture()\ndef non_prime_numbers():\n    return [8, 0, 1]\n\n\n@pytest.fixture()\ndef negative_numbers():\n    return [-1, -3, -6]\n\n\ndef test_is_prime_true(prime_numbers):\n    for number in prime_numbers:\n        assert is_prime(number)\n\n\ndef test_is_prime_false(non_prime_numbers, negative_numbers):\n    for number in non_prime_numbers:\n        assert not is_prime(number)\n\n    for number in negative_numbers:\n        assert not is_prime(number)\n\n"
+    },
+    {
+        "case number": "83",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "84",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "85",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "86",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "87",
+        "code": "def argsort(nums):\n    return [idx for idx, val in sorted(enumerate(nums), key=lambda x: x[1])]\n\n",
+        "unittest": "import numpy as np\n\nfrom argsort import argsort\n\ndef test_argsort():\n    list1 = [0, 3, 4, 5, 1, 9]\n    list2 = []\n    list3 = [1]\n    list4 = [0, 1, 2, 3, 4]\n    list5 = [-2, 1, 1, 3, 1]\n    lists = [list1, list2, list3, list4]\n    for listt in lists:\n        sorted_idxs = argsort(np.copy(listt))\n        assert np.array_equal(np.argsort(listt), sorted_idxs)\n\n"
+    },
+    {
+        "case number": "88",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "89",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "90",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "91",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "92",
+        "code": "def add(x: int, y: int) -> int:\n    return x + y\n\n",
+        "unittest": "from python_boilerplate import add\n\n\ndef test_add():\n    assert add(1, 1) == 2\n\n"
+    },
+    {
+        "case number": "93",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "94",
+        "code": "def is_prime(n):\n    \"\"\"returns True if n is prime else False\"\"\"\n    if n < 5 or n & 1 == 0 or n % 3 == 0:\n        return 2 <= n <= 3\n    s = ((n - 1) & (1 - n)).bit_length() - 1\n    d = n >> s\n    for a in [2, 325, 9375, 28178, 450775, 9780504, 1795265022]:\n        p = pow(a, d, n)\n        if p == 1 or p == n - 1 or a % n == 0:\n            continue\n        for _ in range(s):\n            p = (p * p) % n\n            if p == n - 1:\n                break\n        else:\n            return False\n    return True\n\n",
+        "unittest": "from pyrival.is_prime import *\n\n\ndef test_is_prime(prime_set):\n    for i in range(max(prime_set) + 1):\n        assert is_prime(i) == (i in prime_set)\n\n    assert is_prime(10**8 + 7) == True\n    assert is_prime(10**9 + 7) == True\n    assert is_prime(10**9 + 9) == True\n\n    assert is_prime(326549970232583195150330872691) == True\n    assert is_prime(551957180201435611622967802607) == True\n    assert is_prime(722963248890983103711213365897) == True\n\n    assert is_prime(688220523361999133670399137430) == False\n    assert is_prime(400284591585155461390239326086) == False\n    assert is_prime(576409959862662626347091665567) == False\n\n"
+    },
+    {
+        "case number": "95",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "96",
+        "code": "from math import sqrt, ceil\n\n\ndef prime_sieve(n):\n    if n < 2:\n        return []\n\n    primes = [True] * n\n\n    primes[0], primes[1] = False, False\n\n    for i in range(2, ceil(sqrt(n))):\n        if primes[i]:\n            for j in range(i * i, n, i):\n                primes[j] = False\n\n    return [num for num, val in enumerate(primes) if val]\n\n",
+        "unittest": "from unittest import TestCase\nfrom prime_sieve import prime_sieve\n\n\nclass PrimeSieveTest(TestCase):\n    def test_primes(self):\n        actual = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37,\n                  41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]\n        expected = prime_sieve(100)\n        assert actual == expected\n\n    def test_no_primes(self):\n        assert prime_sieve(1) == []\n\n    def test_one_prime(self):\n        assert prime_sieve(3) == [2]\n\n"
+    },
+    {
+        "case number": "97",
+        "code": "def add(a, b):\n    return a + b\n\n\ndef subtract(a, b):\n    return a - b\n\n\ndef multiply(a, b):\n    return a * b\n\n\ndef divide(numerator, denominator):\n    return float(numerator) / denominator\n",
+        "unittest": "# test_mymath.py\nimport mymath\nimport unittest\n\nclass TestAdd(unittest.TestCase):\n    \"\"\"\n    Test the add function from the mymath library\n    \"\"\"\n\n    def test_add_integers(self):\n        \"\"\"\n        Test that the addition of two integers returns the correct total\n        \"\"\"\n        result = mymath.add(1, 2)\n        self.assertEqual(result, 3)\n\n    def test_add_floats(self):\n        \"\"\"\n        Test that the addition of two floats returns the correct result\n        \"\"\"\n        result = mymath.add(10.5, 2)\n        self.assertEqual(result, 12.5)\n\n    def test_add_strings(self):\n        \"\"\"\n        Test the addition of two strings returns the two string as one\n        concatenated string\n        \"\"\"\n        result = mymath.add('abc', 'def')\n        self.assertEqual(result, 'abcdef')\n\n\nif __name__ == '__main__':\n    unittest.main()\n"
+    },
+    {
+        "case number": "98",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "99",
+        "code": "from math import ceil\n\n\ndef round_to_decimal(value, precision: float = 0.5) -> float:\n    \"\"\"\n    Helper function to round a given value to a specific precision, for example *.5\n    So 5.4 will be rounded to 5.5\n    \"\"\"\n    return round(precision * round(float(value) / precision), 1)\n\n\ndef round_up_decimal(value, precision: float = 0.5) -> float:\n    \"\"\"\n    Helper function to round a given value up a specific precision, for example *.5\n    So 5.4 will be rounded to 5.5 and 5.6 to 6.0\n    \"\"\"\n    return ceil(value * (1 / precision)) / (1 / precision)\n\n",
+        "unittest": "from django.test import TestCase\n\nfrom ai_django_core.utils.math import round_to_decimal, round_up_decimal\n\n\nclass MathTest(TestCase):\n    def test_round_to_decimal_no_precision(self):\n        self.assertEqual(round_to_decimal(5.2, 1), 5)\n\n    def test_round_to_decimal_two_precisions(self):\n        self.assertEqual(round_to_decimal(5.62, 0.05), 5.60)\n\n    def test_round_to_decimal_down_lower(self):\n        self.assertEqual(round_to_decimal(5.2), 5.0)\n\n    def test_round_to_decimal_up_lower(self):\n        self.assertEqual(round_to_decimal(5.4), 5.5)\n\n    def test_round_to_decimal_down_upper(self):\n        self.assertEqual(round_to_decimal(5.6), 5.5)\n\n    def test_round_to_decimal_no_round(self):\n        self.assertEqual(round_to_decimal(5.0), 5.0)\n\n    def test_round_to_decimal_up_upper(self):\n        self.assertEqual(round_to_decimal(5.8), 6.0)\n\n    def test_round_up_decimal_no_precision(self):\n        self.assertEqual(round_up_decimal(5.2, 1), 6)\n\n    def test_round_up_decimal_two_precisions(self):\n        self.assertEqual(round_up_decimal(5.62, 0.05), 5.65)\n\n    def test_round_up_decimal_down_lower(self):\n        self.assertEqual(round_up_decimal(5.2), 5.5)\n\n    def test_round_up_decimal_up_lower(self):\n        self.assertEqual(round_up_decimal(5.4), 5.5)\n\n    def test_round_up_decimal_down_upper(self):\n        self.assertEqual(round_up_decimal(5.6), 6.0)\n\n    def test_round_up_decimal_no_round(self):\n        self.assertEqual(round_up_decimal(5.0), 5.0)\n\n    def test_round_up_decimal_up_upper(self):\n        self.assertEqual(round_up_decimal(5.8), 6.0)\n\n"
+    },
+    {
+        "case number": "100",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "101",
+        "code": "def comma_separated(xs):\n    \"\"\"Convert each value in the sequence xs to a string, and separate them\n    with commas.\n\n    >>> comma_separated(['spam', 5, False])\n    'spam, 5, False'\n    >>> comma_separated([5])\n    '5'\n    >>> comma_separated([])\n    ''\n    \"\"\"\n    return ', '.join([str(x) for x in xs])\n\n\n",
+        "unittest": "import random\n\nSUMMARY = \"Start scores = ({s0}, {s1}).\\nPlayer {w} rolls {nr} dice and gets outcomes {rv}.\\nEnd scores = ({e0}, {e1})\"\n\ndef describe_game(hog, hog_gui, test_number, score0, score1, goal):\n    strat_seed0, strat_seed1, dice_seed = run_with_seed(test_number, lambda: [random.randrange(2**32) for _ in range(3)])\n    strategy0 = random_strat(strat_seed0)\n    strategy1 = random_strat(strat_seed1)\n    dice = get_dice(dice_seed)\n    s0last, s1last, game_trace = hog_gui.trace_play(\n        hog.play,\n        strategy0,\n        strategy1,\n        score0=score0,\n        score1=score1,\n        dice=dice,\n        goal=goal,\n        say=hog.silence)\n\n    end_of_turn = [(turn[\"s0_start\"], turn[\"s1_start\"]) for turn in game_trace[1:]]\n    end_of_turn.append((s0last, s1last))\n    summary = []\n    for turn, end in zip(game_trace, end_of_turn):\n        summary.append(SUMMARY.format(\n            s0=turn[\"s0_start\"],\n            s1=turn[\"s1_start\"],\n            w=turn[\"who\"],\n            nr=turn[\"num_dice\"],\n            rv=turn[\"dice_values\"],\n            e0=end[0],\n            e1=end[1]\n        ))\n    summary.append(\"Game Over\")\n    return summary\n\ndef random_strat(seed):\n    \"\"\"\n    Makes a random strategy from based on the given seed\n    \"\"\"\n    def random_strat(score, opponent_score):\n        # Save the state of the random generator, so strategy calls don't\n        # impact dice rolls.\n        # using this because python's hash function is NOT CONSISTENT ACROSS OSs!!!!!!!!!!!!11!!22!!2!\n        conditional_seed = score * 314159265358979 + opponent_score * 27182818284590452353602874713527 + seed * 161803398874989484820\n        return run_with_seed(conditional_seed % (2 ** 32), lambda: random.randrange(0, 11))\n    return random_strat\n\ndef run_with_seed(seed, fn):\n    state = random.getstate()\n    random.seed(seed)\n    result = fn()\n    random.setstate(state)\n    return result\n\ndef get_dice(seed):\n    def dice():\n        nonlocal seed\n        seed, value = run_with_seed(seed, lambda: (random.randrange(0, 2**32), random.randrange(1, 7)))\n        return value\n    return dice\n\n"
+    },
+    {
+        "case number": "102",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "103",
+        "code": "import math\n\n\ndef mean(target_list: list[int], floor: bool = True) -> int:\n    \"\"\"\n    Gets the mean value of the list, rounded down if floor is True, else rounded up\n    \"\"\"\n    if floor:\n        return mean_floor(target_list)\n\n    return mean_ceil(target_list)\n\n\ndef mean_floor(target_list: list[int]) -> int:\n    \"\"\"\n    Gets the rounded down mean of the list\n    \"\"\"\n    return sum(target_list) // len(target_list)\n\n\ndef mean_ceil(target_list: list[int]) -> int:\n    \"\"\"\n    Gets the rounded up mean of the list\n    \"\"\"\n    return math.ceil(sum(target_list) / len(target_list))\n\n\ndef gaussian_sum(number: int) -> int:\n    \"\"\"\n    Gets the sum of all numbers up to the provided number.\n    E.g. gaussian_sum(5) == sum([1, 2, 3, 4, 5])\n    :param number:\n    :return:\n    \"\"\"\n    return number * (1 + number) // 2\n\n",
+        "unittest": "import pytest\n\nfrom adventofcode.util.math_helpers import gaussian_sum, mean_ceil, mean_floor\n\n\n@pytest.mark.parametrize(\"number\", [*range(0, 10, 3)])\ndef test_gaussian_sum(number):\n    assert gaussian_sum(number) == sum(range(1, number + 1))\n\n\n@pytest.mark.parametrize([\"target_list\", \"expected\"], [([1, 2, 3, 4, 5], 3), ([13, 34, 45, 68, 5], 33)])\ndef test_mean_floor(target_list, expected):\n    assert mean_floor(target_list) == expected\n\n\n@pytest.mark.parametrize(\n    [\"target_list\", \"expected\"],\n    [([123, 34546, 341, 45], 8764), ([13, 34, 45, 68, 5], 33)],\n)\ndef test_mean_ceil(target_list, expected):\n    assert mean_ceil(target_list) == expected\n\n"
+    },
+    {
+        "case number": "104",
+        "code": "from __future__ import print_function, division, absolute_import\n\ndef unique(seq):\n    '''Returns a list of unique items maintaining the order of the original.\n    '''\n    seen = set()\n    seen_add = seen.add\n    return [x for x in seq if not (x in seen or seen_add(x))]\n\n",
+        "unittest": "\nfrom msmbuilder.utils import unique\n\ndef test_unique():\n    assert unique([1,2,3,3,2,1]) == [1,2,3]\n    assert unique([3,3,2,2,1,1]) == [3,2,1]\n    assert unique([3,1,2,1,2,3]) == [3,1,2]\n\n"
+    },
+    {
+        "case number": "105",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "106",
+        "code": "# coding: utf-8\n\"\"\"\nhttps://en.wikipedia.org/wiki/Factorial\n\n0! = 1\n1! = 1\nn! = n * (n - 1) * (n - 2) * (n - 3) * ... * 3 * 2 * 1\n\"\"\"\n\n\ndef factorial(n):\n    if not isinstance(n, int) or n < 0:\n        raise ValueError('n is invalid')\n\n    # Base case\n    if n <= 1:\n        return 1\n\n    # Recursive case\n    return n * factorial(n - 1)\n\n\ndef factorial_for_loop(n):\n    ans = 1\n    for i in range(1, n + 1):\n        ans = ans * i\n    return ans\n\n",
+        "unittest": "# coding: utf-8\nimport math\nimport random\nimport unittest\n\nfrom algorithms.math.factorial import factorial\nfrom algorithms.math.factorial import factorial_for_loop\n\n\nclass TestCase(unittest.TestCase):\n    def test(self):\n        with self.assertRaises(ValueError):\n            factorial(-1)\n\n        with self.assertRaises(ValueError):\n            factorial(0.5)\n\n        with self.assertRaises(ValueError):\n            factorial('abc')\n\n        self.assertEqual(factorial(0), 1)\n        self.assertEqual(factorial(1), 1)\n        self.assertEqual(factorial(2), 2)\n        self.assertEqual(factorial(3), 6)\n        self.assertEqual(factorial(4), 24)\n        self.assertEqual(factorial(5), 120)\n        self.assertEqual(factorial(6), 720)\n        self.assertEqual(factorial(7), 5040)\n        self.assertEqual(factorial(8), 40320)\n        self.assertEqual(factorial(9), 362880)\n        self.assertEqual(factorial(10), 3628800)\n\n    def test_2(self):\n        rand_i = random.randint(0, 100)\n        self.assertEqual(factorial(rand_i), math.factorial(rand_i))\n\n\nclass TestCase2(unittest.TestCase):\n    def test(self):\n        self.assertEqual(factorial_for_loop(0), 1)\n        self.assertEqual(factorial_for_loop(1), 1)\n        self.assertEqual(factorial_for_loop(2), 2)\n        self.assertEqual(factorial_for_loop(3), 6)\n        self.assertEqual(factorial_for_loop(4), 24)\n        self.assertEqual(factorial_for_loop(5), 120)\n        self.assertEqual(factorial_for_loop(6), 720)\n        self.assertEqual(factorial_for_loop(7), 5040)\n        self.assertEqual(factorial_for_loop(8), 40320)\n        self.assertEqual(factorial_for_loop(9), 362880)\n        self.assertEqual(factorial_for_loop(10), 3628800)\n\n    def test_2(self):\n        rand_i = random.randint(0, 10000)\n        self.assertEqual(factorial_for_loop(rand_i), math.factorial(rand_i))\n\n\nif __name__ == '__main__':\n    unittest.main()\n\n"
+    },
+    {
+        "case number": "107",
+        "code": "#import reverse_string\ndef palindrome(string):\n\tnum = len(string) - 1\n\tsecond_half = ''\n\tmid = len(string) - 1\n\twhile (num > mid/2):\n\t\tsecond_half += string[num]\n\t\tnum -=1\n\n\tfirst_half = string[:len(string)/2]\n\tif first_half == second_half:\n\t\treturn True\n\telse:\n\t\treturn False\n\nprint palindrome(\"racecar\")\nprint palindrome(\"poop\")\n\n",
+        "unittest": "\"\"\" approximate string matching and edit distance \"\"\"\nstr1 = input(\"Enter the string : \")\nstr2 = input(\"Enter the string to form : \")\n\nn = len(str1)+1\nm = len(str2)+1\narr = [[j for j in range(m)] for i in range(n)]\nfor i in range(n):\n    arr[i][0] = i\n\ndef check(i,j):\n    if(str1[i] == str2[j]):\n        return 1\n    else:\n        return 0\n\nfor i in range(1,n):\n    for j in range(1,m):\n        arr[i][j] = min([arr[i][j-1]+1, arr[i-1][j]+1, arr[i-1][j-1]+check(i-1,j-1)])\n   \nprint(\"Edit Distance : \"+str(arr[n-1][m-1]))\n"
+    },
+    {
+        "case number": "108",
+        "code": "class Solution:\n    def addDigits(self, num: int) -> int:\n        if num < 10:\n            return num\n\n        new_num = 0\n        while num > 0:\n            new_num += num % 10\n            num //= 10\n\n        return self.addDigits(new_num)\n\n",
+        "unittest": "from typing import List\n\n\nclass Solution:\n    def maxNumOfMarkedIndices(self, nums: List[int]) -> int:\n        answer = 0\n        double_nums = [num * 2 for num in nums]\n        for i in range(len(nums)):\n            for j in range(len(nums)):\n                if double_nums[i] <= nums[j]:\n                    answer += 1\n\n        return answer\n\n# WA\n# [1,78,27,48,14,86,79,68,77,20,57,21,18,67,5,51,70,85,47,56,22,79,41,8,39,81,59,74,14,45,49,15,10,28,16,77,22,65,8,36,79,94,44,80,72,8,96,78,39,92,69,55,9,44,26,76,40,77,16,69,40,64,12,48,66,7,59,10]\n# output: 1153\n# expected: 64\n\n"
+    },
+    {
+        "case number": "109",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "110",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "111",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "112",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "113",
+        "code": "from typing import Union\n\nfrom .utils.to_int import to_int\n\n\ndef is_odd(input: Union[int, str]) -> bool:\n    input = to_int(input)\n\n    if input is None:\n        return False\n\n    return bool(input % 2)\n\n",
+        "unittest": "import unittest\n\nfrom pyvalidator.is_odd import is_odd\nfrom . import print_test_ok\n\n\nclass TestIsOdd(unittest.TestCase):\n    def valid_check(self, items):\n        for item in items:\n            try:\n                self.assertTrue(is_odd(item))\n            except Exception as e:\n                print(f'failed for input: {item}')\n                raise e\n\n    def invalid_check(self, items):\n        for item in items:\n            try:\n                self.assertFalse(is_odd(item))\n            except Exception as e:\n                print(f'failed for input: {item}')\n                raise e\n\n    def test_valid_odd(self):\n        valid_items = [\n            1,\n            3,\n            5,\n            7,\n            9,\n            111,\n            2019,\n            -1\n        ]\n        self.valid_check(valid_items)\n        print_test_ok()\n\n    def test_invalid_odd(self):\n        invalid_items = [\n            ' ',\n            'a',\n            '.1',\n            '1.1',\n            0,\n            2,\n            110,\n            220,\n            2020,\n            '2020',\n            '666',\n            '2',\n            '0'\n        ]\n        self.invalid_check(invalid_items)\n        print_test_ok()\n\n"
+    },
+    {
+        "case number": "114",
+        "code": "# coding: utf-8\n\"\"\"\nhttps://leetcode.com/problems/maximum-subarray/\n\"\"\"\nfrom typing import List\n\n\nclass Solution:\n    def maxSubArray(self, nums: List[int]) -> int:\n        max_sum = current_sum = nums[0]\n        for num in nums[1:]:\n            current_sum = current_sum + num\n\n            # if the current sum is less than the current num\n            # there is no reason to continue to sum\n            if current_sum < num:\n                current_sum = num\n\n            if current_sum > max_sum:\n                max_sum = current_sum\n\n        return max_sum\n\n",
+        "unittest": "# coding: utf-8\nimport unittest\n\nfrom problems.maximum_subarray import Solution\n\n\nclass TestCase(unittest.TestCase):\n    def setUp(self):\n        self.solution = Solution()\n\n    def test(self):\n        nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4]\n        self.assertEqual(self.solution.maxSubArray(nums), 6)\n\n\nif __name__ == '__main__':\n    unittest.main()\n\n"
+    },
+    {
+        "case number": "115",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "116",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "117",
+        "code": "#\n\nimport inflect\n\np = inflect.engine()\n\n\ndef select_uppercase(s):\n    return s.upper()\n\ndef select_article(s):\n    return p.an(s)\n\n\ndef select_pluralize(subject, count):\n    return p.plural(subject, count)\n\n\ndef select_plural_verb(verb, subject):\n    return p.plural_verb(verb, subject)\n\n\ndef select_plural_adj(adj, subject):\n    return p.plural_adj(adj, subject)\n\n\ndef select_conjunction(wordlist):\n    \"\"\"Join a list with commas and such.\"\"\"\n    return p.join(wordlist)\n\n",
+        "unittest": "#!/usr/bin/env python\n# -*- coding: utf-8 -*-\n\n\"Fully test this module's functionality through the use of fixtures.\"\n#\n\nimport unittest2 as unittest\nfrom megacosm import select_article, select_pluralize, select_conjunction, select_uppercase\nfrom megacosm import select_plural_verb, select_plural_adj\n\n\nclass TestFilter(unittest.TestCase):\n\n    def test_select_uppercase(self):\n        self.assertEquals('DOG', select_uppercase('dog'))\n\n    def test_select_article(self):\n        self.assertEquals('a dog', select_article('dog'))\n        self.assertEquals('an apple', select_article('apple'))\n        self.assertEquals('an hour', select_article('hour'))\n\n    def test_select_pluralize(self):\n        self.assertEquals('dogs', select_pluralize('dog', 0))\n        self.assertEquals('dog', select_pluralize('dog', 1))\n        self.assertEquals('dogs', select_pluralize('dog', 2))\n        self.assertEquals('classes', select_pluralize('class', 0))\n        self.assertEquals('class', select_pluralize('class', 1))\n        self.assertEquals('classes', select_pluralize('class', 2))\n\n    def test_select_conjunction(self):\n        self.assertEquals('a', select_conjunction(['a']))\n        self.assertEquals('a and b', select_conjunction(['a', 'b']))\n        self.assertEquals('a, b, and c', select_conjunction(['a', 'b', 'c']))\n        self.assertEquals('a, b, c, and d', select_conjunction(['a', 'b', 'c', 'd']))\n\n    def test_select_plural_verb(self):\n        self.assertEquals('were', select_plural_verb('was', 0))\n        self.assertEquals('was', select_plural_verb('was', 1))\n        self.assertEquals('were', select_plural_verb('was', 2))\n\n    def test_select_plural_adj(self):\n        self.assertEquals('some', select_plural_adj('a', 0))\n        self.assertEquals('a', select_plural_adj('a', 1))\n        self.assertEquals('some', select_plural_adj('a', 2))\n\n        self.assertEquals('these', select_plural_adj('this', 0))\n        self.assertEquals('this', select_plural_adj('this', 1))\n        self.assertEquals('these', select_plural_adj('this', 2))\n\n        self.assertEquals('those', select_plural_adj('that', 0))\n        self.assertEquals('that', select_plural_adj('that', 1))\n        self.assertEquals('those', select_plural_adj('that', 2))\n\n        self.assertEquals('our', select_plural_adj('my', 0))\n        self.assertEquals('my', select_plural_adj('my', 1))\n        self.assertEquals('our', select_plural_adj('my', 2))\n\n"
+    },
+    {
+        "case number": "118",
+        "code": "\"\"\"\nYou get a string and need to return its number of vowels.\nFor this test, we will only consider a, e, i, o and u as vowels.\n\nFor example:\n\nInput: \"Alabama\"\nOutput: 4\n\nInput: \"Caserta\"\nOutput: 3\n\n\"\"\"\n\n\n#For Loop\ndef count(input_string):\n    num_vowels = 0\n    vowels = ['a', 'e', 'i', 'o', 'u']\n    for letter in input_string.lower():\n        if letter in vowels:\n            num_vowels += 1\n\n    return num_vowels\n\n",
+        "unittest": "from Company.vowel_count import count\n\n\ndef test_count():\n    assert count('Alabama') == 4\n    assert count('Caserta') == 3\n\n"
+    },
+    {
+        "case number": "119",
+        "code": "\"\"\"\nGiven a 32-bit signed integer, reverse digits of an integer.\n\nExample 1:\n\nInput: 123\nOutput: 321\nExample 2:\n\nInput: -123\nOutput: -321\nExample 3:\n\nInput: 120\nOutput: 21\n\"\"\"\n\n\nclass Solution(object):\n    def matchChar(self, sc, pc):\n        return sc == pc or pc == '.'\n\n    def isEndOfStar(self, p):\n        while p != '':\n            if len(p) == 1 or len(p) > 1 and p[1] != '*':\n                return False\n            p = p[2:]\n        return True\n\n    def isMatch(self, s, p):\n        if p == '':\n            return s == ''\n\n        if s == '':\n            return self.isEndOfStar(p)\n\n        if (len(p) > 1 and p[1] != '*') or len(p) == 1:\n            # without *\n            if not self.matchChar(s[0], p[0]):\n                return False\n            else:\n                return self.isMatch(s[1:], p[1:])\n\n        else:\n            # with *\n            # try see x* is empty\n            if self.isMatch(s[0:], p[2:]):\n                return True\n\n            while self.matchChar(s[0], p[0]):\n                s = s[1:]\n\n                if self.isMatch(s, p[2:]):\n                    return True\n\n                if s == '':\n                    return self.isEndOfStar(p)\n            return False\n\n",
+        "unittest": "\"\"\"\nTest cases for 7.py found in the LeetCode folder.\nAnswer by @VGZELDA\n\"\"\"\n# function to be tested\ndef reverse(x):\n        x=int(x)\n        if(x>=0):\n            x=str(x)\n            x=x[::-1]\n            x=int(x)\n            if(x<-1*(2**31))or(x>=2**31):\n                return 0\n            else:\n                return x\n        else:\n            x=x*(-1)\n            x=str(x)\n            x=x[::-1]\n            x=int(x)\n            x=-1*x\n            if(x<-1*(2147483648))or(x>=2147483648):\n                return 0\n            else:\n                return x\n# function to test reverse\ndef test_reverse():\n    assert reverse(123) == 321, \"Should be 321\"\n    assert reverse(120) == 21, \"Should be 21\"\ntest_reverse()\nprint(\"Everything passed\")\n\n"
+    },
+    {
+        "case number": "120",
+        "code": "import numpy as np\n\n\ndef top_k(a, k, reverse=False):\n    flat = a.ravel()\n\n    if len(flat) <= k:\n        return np.arange(len(a))\n\n    if reverse:\n        top_k_inds = np.argpartition(flat, len(flat)-k)[-k:]\n    else:\n        top_k_inds = np.argpartition(flat, k)[:k]\n\n    return np.unravel_index(top_k_inds, a.shape)\n\n",
+        "unittest": "import unittest\nimport numpy as np\n\nfrom collections import Counter\n\nfrom pero_ocr.decoding.multisort import top_k\n\n\nclass MultisortTests(unittest.TestCase):\n    def test_single_elem(self):\n        arr = np.asarray([1])\n        inds = np.asarray([0])\n\n        self.assertEqual(top_k(arr, k=1), inds)\n\n    def test_unique_solution(self):\n        arr = np.asarray([2, 3, 1, 4, 0, 5])\n        inds = np.asarray([4])\n\n        self.assertEqual(top_k(arr, k=1), inds)\n\n    def test_simple_2d(self):\n        arr = np.asarray([[2, 3, 1], [4, 0, 5]])\n        retval = top_k(arr, k=1)\n\n        self.assertEquals(arr[retval], 0)\n\n    def test_k2_2d(self):\n        arr = np.asarray([[2, 3, 1], [4, 0, 5]])\n        retval = top_k(arr, k=2)\n\n        self.assertEquals(set(arr[retval].tolist()), set([0, 1]))\n\n    def test_k2_2d_reverse(self):\n        arr = np.asarray([[2, 3, 1], [4, 0, 5]])\n        retval = top_k(arr, k=2, reverse=True)\n\n        self.assertEquals(set(arr[retval].tolist()), set([4, 5]))\n\n    def test_k2_2d_reverse_duplicit_top(self):\n        arr = np.asarray([[2, 5, 1], [4, 0, 5]])\n        retval = top_k(arr, k=2, reverse=True)\n\n        self.assertEquals(Counter(arr[retval].tolist()), Counter([5, 5]))\n\n"
+    },
+    {
+        "case number": "121",
+        "code": "class Solution:\n    def arraySign(self, nums: List[int]) -> int:\n        prod = 1\n\t\t\n        for i in range(len(nums)):\n            prod *= nums[i]\n            \n        if prod > 0:\n            return 1\n        elif prod == 0:\n            return 0\n        else:\n            return -1\n\t\t\t\n\t\t\t\t\n#Second solution\nclass Solution:\n    def arraySign(self, nums: List[int]) -> int:\n        if 0 in nums:\n            return 0\n\t\t\t\n        count = 0\n        for i in nums:\n            if i < 0:\n                count += 1\n        return 1 if count%2 == 0 else -1\n            \n",
+        "unittest": "class Solution:\n    def arraySign(self, nums: List[int]) -> int:\n        prod = 1\n\t\t\n        for i in range(len(nums)):\n            prod *= nums[i]\n            \n        if prod > 0:\n            return 1\n        elif prod == 0:\n            return 0\n        else:\n            return -1\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\nclass Solution:\n    def arraySign(self, nums: List[int]) -> int:\n        if 0 in nums:\n            return 0\n\t\t\t\n        count = 0\n        for i in nums:\n            if i < 0:\n                count += 1\n        return 1 if count%2 == 0 else -1\n            \n"
+    },
+    {
+        "case number": "122",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "123",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "124",
+        "code": "\n\ndef is_year_leap(year):\n\n    if year % 400 == 0:\n        return True\n\n    if year % 4 == 0 and year % 100 != 0:\n        return True\n\n    return False\n\n\ndef date(day, month, year):\n    day_in_month = {1: 31,\n                    2: 29 if is_year_leap(year) else 28,\n                    3: 31,\n                    4: 30,\n                    5: 31,\n                    6: 30,\n                    7: 31,\n                    8: 31,\n                    9: 30,\n                    10: 31,\n                    11: 30,\n                    12: 31}\n\n    if 1 <= month <= 12 and 1 <= day <= day_in_month[month]:\n        return True\n    return False\n\n\ndef date_cheat(day, month, year):\n    \"\"\"\u041f\u0440\u043e\u0449\u0435, \u043d\u043e \u044d\u0442\u043e \u043d\u0435\u043f\u0435\u0434\u0430\u0433\u043e\u0433\u0438\u0447\u043d\u043e :)\"\"\"\n    import datetime\n    try:\n        datetime.date(year, month, day)\n    except ValueError:\n        return False\n    else:\n        return True\n\n",
+        "unittest": "\nimport unittest\n\n\nclass DateTestCase(unittest.TestCase):\n\n    def test_leap_years(self):\n\n        for year in (2000, 2016, 1916):\n            with self.subTest(year=year):\n                self.assertTrue(date(29, 2, year),\n                                \"{} \u0432\u0438\u0441\u043e\u043a\u043e\u0441\u043d\u044b\u0439\".format(year))\n\n        for year in (1900, 2014, 2001):\n            with self.subTest(year=year):\n                self.assertFalse(date(29, 2, year),\n                                 \"{} \u043d\u0435 \u0432\u0438\u0441\u043e\u043a\u043e\u0441\u043d\u044b\u0439\".format(year))\n\n    def test_valid_dates(self):\n\n        self.assertTrue(date(1, 1, 1900))\n        self.assertTrue(date(28, 2, 1900))\n        self.assertTrue(date(1, 1, 1))\n        self.assertTrue(date(31, 1, 2000))\n        self.assertTrue(date(31, 12, 1900))\n\n    def test_invalid_month(self):\n\n        self.assertFalse(date(1, 13, 1900))\n        self.assertFalse(date(2, 14, 2003))\n\n    def test_invalid_day(self):\n\n        self.assertFalse(date(32, 1, 1900))\n        self.assertFalse(date(30, 2, 1900))\n        self.assertFalse(date(31, 4, 1900))\n\n    def test_invalid_all(self):\n\n        self.assertFalse(date(32, 13, 1900))\n\n\nif __name__ == \"__main__\":\n    unittest.main()\n"
+    },
+    {
+        "case number": "125",
+        "code": "import re\n\nfrom typing import List\n\n\ndef is_camel_case_word(word: str) -> bool:\n    uppercase_letters_amount = re.subn(r'[A-Z]', '', word)[1]\n    lowercase_letters_amount = re.subn(r'[a-z]', '', word)[1]\n    return bool(\n        (lowercase_letters_amount and uppercase_letters_amount >= 2)\n        or re.findall(r'[a-z][A-Z]', word),\n    )\n\n\ndef split_camel_case_words(camel_cased_word: str) -> List[str]:\n    words_start_indexes = [m.start(0) for m in re.finditer(r'[A-Z]', camel_cased_word)]\n    if words_start_indexes[0] > 0:\n        words_start_indexes.insert(0, 0)\n    if words_start_indexes[-1] < len(camel_cased_word):\n        words_start_indexes.append(len(camel_cased_word))\n    words = []\n    for word_start_index, word_end_index in zip(words_start_indexes, words_start_indexes[1:]):\n        words.append(camel_cased_word[word_start_index:word_end_index].lower())\n    return words\n\n",
+        "unittest": "from rozental_as_a_service.text_utils import is_camel_case_word, split_camel_case_words\n\n\ndef test_is_camel_case_word():\n    assert is_camel_case_word('Notcamelcase') is False\n    assert is_camel_case_word('IsCamelCase') is True\n\n\ndef test_split_camel_case_words():\n    assert split_camel_case_words('ReturnNormalWorlds') == ['return', 'normal', 'worlds']\n\n"
+    },
+    {
+        "case number": "126",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "127",
+        "code": "def is_prime(number):\n    if number < 0 or number in (0, 1):\n        return False\n\n    for element in range(2, number):\n        if number % element == 0:\n            return False\n\n    return True\n\n",
+        "unittest": "import pytest\n\nfrom primes import is_prime\n\n\n@pytest.fixture()\ndef prime_numbers():\n    return [3, 5, 7]\n\n\n@pytest.fixture()\ndef non_prime_numbers():\n    return [8, 0, 1]\n\n\n@pytest.fixture()\ndef negative_numbers():\n    return [-1, -3, -6]\n\n\ndef test_is_prime_true(prime_numbers):\n    for number in prime_numbers:\n        assert is_prime(number)\n\n\ndef test_is_prime_false(non_prime_numbers, negative_numbers):\n    for number in non_prime_numbers:\n        assert not is_prime(number)\n\n    for number in negative_numbers:\n        assert not is_prime(number)\n\n"
+    },
+    {
+        "case number": "128",
+        "code": "class Solution:\n    def arraySign(self, nums: List[int]) -> int:\n        prod = 1\n\t\t\n        for i in range(len(nums)):\n            prod *= nums[i]\n            \n        if prod > 0:\n            return 1\n        elif prod == 0:\n            return 0\n        else:\n            return -1\n\t\t\t\n\t\t\t\t\n#Second solution\nclass Solution:\n    def arraySign(self, nums: List[int]) -> int:\n        if 0 in nums:\n            return 0\n\t\t\t\n        count = 0\n        for i in nums:\n            if i < 0:\n                count += 1\n        return 1 if count%2 == 0 else -1\n            \n",
+        "unittest": "class Solution:\n    def arraySign(self, nums: List[int]) -> int:\n        prod = 1\n\t\t\n        for i in range(len(nums)):\n            prod *= nums[i]\n            \n        if prod > 0:\n            return 1\n        elif prod == 0:\n            return 0\n        else:\n            return -1\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\nclass Solution:\n    def arraySign(self, nums: List[int]) -> int:\n        if 0 in nums:\n            return 0\n\t\t\t\n        count = 0\n        for i in nums:\n            if i < 0:\n                count += 1\n        return 1 if count%2 == 0 else -1\n            \n"
+    },
+    {
+        "case number": "129",
+        "code": "\"\"\"https://leetcode.com/problems/minimum-path-sum\"\"\"\nimport heapq\n\n\ndef min_path_sum_dp(grid):\n    \"\"\"Solution using dynamic programming.\n\n    Time complexity: O(m * n)\n    Space complexity: O(1)\n\n    Args:\n        grid(List[List[int]]): Matrix m x n filled with non-negative integers.\n\n    Returns:\n        Minimal sum of all numbers of a path (One can only move either down or\n        right at any point in time) from top left to bottom right.\n\n    \"\"\"\n    for x in range(len(grid)):\n        for y in range(len(grid[0])):\n            if x > 0 and y > 0:\n                grid[x][y] = min(\n                    grid[x][y] + grid[x - 1][y],\n                    grid[x][y] + grid[x][y - 1]\n                )\n            elif x > 0:\n                grid[x][y] = grid[x][y] + grid[x - 1][y]\n            elif y > 0:\n                grid[x][y] = grid[x][y] + grid[x][y - 1]\n\n    return grid[len(grid) - 1][len(grid[0]) - 1]\n\n\ndef min_path_sum_djikstra(grid):\n    \"\"\"Solution using Djikstra algorithm.\n\n    Time complexity: O(V + E) where V: vertices, E: edges.\n    Space complexity: O(V)\n\n    Args:\n        grid(List[List[int]]): Matrix m x n filled with non-negative integers.\n\n    Returns:\n        Minimal sum of all numbers of a path (One can only move either down or\n        right at any point in time) from top left to bottom right.\n\n    \"\"\"\n    heap = [(grid[0][0], 0, 0)]\n\n    while heap:\n        cost, x, y = heapq.heappop(heap)\n\n        if x == len(grid) - 1 and y == len(grid[0]) - 1:\n            return cost\n\n        if x < len(grid) - 1:\n            heapq.heappush(heap, (cost + grid[x + 1][y], x + 1, y))\n        if y < len(grid[0]) - 1:\n            heapq.heappush(heap, (cost + grid[x][y + 1], x, y + 1))\n\n",
+        "unittest": "import pytest\nfrom dsa.problems.min_path_sum import min_path_sum_dp, min_path_sum_djikstra\n\n\n@pytest.mark.parametrize(\"grid, expected\", [\n    ([[1,3,1],[1,5,1],[4,2,1]], 7),\n    ([[1,2,3],[4,5,6]], 12),\n])\ndef test_min_path_sum_dp(grid, expected):\n    assert min_path_sum_dp(grid) == expected\n\n\n@pytest.mark.parametrize(\"grid, expected\", [\n    ([[1,3,1],[1,5,1],[4,2,1]], 7),\n    ([[1,2,3],[4,5,6]], 12),\n])\ndef test_min_path_sum_djikstra(grid, expected):\n    assert min_path_sum_djikstra(grid) == expected\n\n"
+    },
+    {
+        "case number": "130",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "131",
+        "code": "from typing import Union\n\nfrom .utils.to_int import to_int\n\n\ndef is_odd(input: Union[int, str]) -> bool:\n    input = to_int(input)\n\n    if input is None:\n        return False\n\n    return bool(input % 2)\n\n",
+        "unittest": "import unittest\n\nfrom pyvalidator.is_odd import is_odd\nfrom . import print_test_ok\n\n\nclass TestIsOdd(unittest.TestCase):\n    def valid_check(self, items):\n        for item in items:\n            try:\n                self.assertTrue(is_odd(item))\n            except Exception as e:\n                print(f'failed for input: {item}')\n                raise e\n\n    def invalid_check(self, items):\n        for item in items:\n            try:\n                self.assertFalse(is_odd(item))\n            except Exception as e:\n                print(f'failed for input: {item}')\n                raise e\n\n    def test_valid_odd(self):\n        valid_items = [\n            1,\n            3,\n            5,\n            7,\n            9,\n            111,\n            2019,\n            -1\n        ]\n        self.valid_check(valid_items)\n        print_test_ok()\n\n    def test_invalid_odd(self):\n        invalid_items = [\n            ' ',\n            'a',\n            '.1',\n            '1.1',\n            0,\n            2,\n            110,\n            220,\n            2020,\n            '2020',\n            '666',\n            '2',\n            '0'\n        ]\n        self.invalid_check(invalid_items)\n        print_test_ok()\n\n"
+    },
+    {
+        "case number": "132",
+        "code": "OPENING = '('\n\n\ndef is_balanced(parentheses):\n    stack = []\n    for paren in parentheses:\n        if paren == OPENING:\n            stack.append(paren)\n        else:\n            try:\n                stack.pop()\n            except IndexError:  # too many closing parens\n                return False\n    return len(stack) == 0  # false if too many opening parens\n\n\nis_balanced('((()))')  # => True\nis_balanced('(()')  # => False\nis_balanced('())')  # => False\n\n",
+        "unittest": "import unittest\n\nfrom balanced_parentheses import is_balanced\n\n\nclass TestCorrectness(unittest.TestCase):\n\n    def test_identifies_valid_sequence(self):\n        self.assertTrue(is_balanced('()'))\n        self.assertTrue(is_balanced('()(())'))\n\n    def test_identifies_left_imbalance(self):\n        self.assertFalse(is_balanced('(()'))\n\n    def test_identifies_right_imbalance(self):\n        self.assertFalse(is_balanced('())'))\n\n\nif __name__ == '__main__':\n    unittest.main()\n\n"
+    },
+    {
+        "case number": "133",
+        "code": "\ndef square(n: float) -> float:\n    \"\"\"Square a number.\"\"\"\n    return n**2\n\n",
+        "unittest": "from .squarer import square\n\n\ndef test_square():\n    # When\n    subject = square(4)\n\n    # Then\n    assert subject == 16\n\n"
+    },
+    {
+        "case number": "134",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "135",
+        "code": "",
+        "unittest": ""
+    },
+    {
+        "case number": "136",
+        "code": "\"\"\"eetcode.com/problems/minimum-difference-between-largest-and-smallest-value-in-three-moves\"\"\"\n\n\ndef min_difference(nums):\n    \"\"\"\n    Time complexity: O(log(n))\n    Space complexity: O(1)\n\n    Args:\n        nums(List[int]): An array of numbers\n\n    Returns:\n        The minimum difference between the largest and smallest value of nums\n        after perfoming at most 3 moves.\n\n    \"\"\"\n    if len(nums) <= 4:\n        return 0\n\n    nums.sort()\n    return min(\n        (nums[-1] - nums[3]),\n        (nums[-2] - nums[2]),\n        (nums[-3] - nums[1]),\n        (nums[-4] - nums[0]),\n    )\n\n",
+        "unittest": "import pytest\nfrom dsa.problems.min_difference import min_difference\n\n\n@pytest.mark.parametrize(\"nums, expected\", [\n    ([5,3,2,4], 0),\n    ([1,5,0,10,14], 1),\n    ([6,6,0,1,1,4,6], 2),\n    ([1,5,6,14,15], 1),\n    ([1,2], 0),\n    ([20,66,68,57,45,18,42,34,37,58], 31),\n    ([82,81,95,75,20], 1),\n])\ndef test_min_difference(nums, expected):\n    assert min_difference(nums) == expected\n\n"
+    }
+]
